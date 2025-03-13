@@ -7,8 +7,8 @@ namespace Reto.Pages;
 public class IndexModel : PageModel
 {
     [BindProperty]
-    [Required(ErrorMessage = "Se requiere un el ID del empleado")]
-    public int? empleadoId {get; set;}
+    [Required(ErrorMessage = "Se requiere un correo")]
+    public string? correo {get; set;}
 
     [BindProperty]
     [Required(ErrorMessage = "Se requiere contraseña")]
@@ -24,11 +24,11 @@ public class IndexModel : PageModel
     }
     public void OnPostIniciarSesion() {
         if (ModelState.IsValid) {
-            if(empleadoId != null) {
-                HttpContext.Session.SetInt32("empleadoIdSesion", (int)empleadoId);
+            if(correo != null) {
+                HttpContext.Session.SetString("correoSesion", correo);
             }
             else {
-                HttpContext.Session.SetInt32("empleadoIdSesion", -1);
+                HttpContext.Session.SetString("correoSesion", "SIN SESIÓN");
             }
             if (contraseña != null) {
                 HttpContext.Session.SetString("contraSesion", contraseña);
