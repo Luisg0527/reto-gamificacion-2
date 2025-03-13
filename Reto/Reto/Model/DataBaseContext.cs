@@ -18,8 +18,8 @@ namespace Reto.Model
         }
 
         public MetricasDash getMetricas(){
-            MetricasDash metricas = new MetricasDash(0,0,0,0,0,0);
-            using(MySqlConnection connection = GetConnection()){
+            MetricasDash metricas = new MetricasDash(0,0,0,0,0,0,DateTime.MinValue);
+            using(MySqlConnection connection = GetConnection()){ 
                 connection.Open();
                 string query = "Select * from metricasusuario where id_usuario = 1";
 
@@ -35,7 +35,8 @@ namespace Reto.Model
                                 reader.GetFloat("ingresos"),
                                 reader.GetFloat("ganancias"),
                                 reader.GetInt32("ordenes"),
-                                reader.GetInt32("visitas")
+                                reader.GetInt32("visitas"),
+                                reader.GetDateTime("fecha")
                             );
                         }
                     }
