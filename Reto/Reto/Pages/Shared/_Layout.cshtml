@@ -8,40 +8,62 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Reto.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/81814e41f6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Reto</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar text-center">
+            <div class="profile-section my-4">
+            <div class="d-flex justify-content-center">
+                <div class="rounded-circle bg-secondary" style="width: 100px; height: 100px;"></div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Reto - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <h3 class="mt-2">Paolo2</h5>
+            </div>
+            <nav class="navbar navbar-light">
+            <div class="navbar-collapse">
+                <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-page="/Index">
+                    <i class="fas fa-home"></i> Hogar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-page="/DashBoard">
+                    <i class="fas fa-chart-line"></i> Reporte de Tienda
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-page="/Privacy">
+                    <i class="fas fa-chalkboard-teacher"></i> Capacitación
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-page="/Privacy">
+                    <i class="fas fa-comments"></i> Foro de Discusión
+                    </a>
+                </li>
+                </ul>
+            </div>
+            </nav>
         </div>
-    </footer>
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow-1">
+            <!-- Header -->
+            <div class="header">
+                <img class="header-img" src="~/images/oxxo-logo.png" alt="OXXO" style="height: 100px; position: relative; top: 40px; left: 50%; transform: translateX(-50%);" >
+            </div>
+
+            <!-- Page Content -->
+            <div class="container ">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+
+        </div>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

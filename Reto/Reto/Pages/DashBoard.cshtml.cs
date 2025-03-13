@@ -10,9 +10,9 @@ public class DashboardModel : PageModel
 
     private readonly DataBaseContext _context;
     public DateTime SelectedDate { get; set; } = DateTime.Today;
-
   
     public MetricasDash metricas {get;set;}
+
 
      public DashboardModel(DataBaseContext context){
         _context = context;
@@ -21,6 +21,7 @@ public class DashboardModel : PageModel
 
     public void OnGet()
     {
+      metricas.fecha = SelectedDate;
       metricas = _context.getMetricas();
 
     }
