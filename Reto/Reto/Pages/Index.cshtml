@@ -24,14 +24,20 @@
                 <form method="post">
                     <div class="myForm">
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Correo electronico</label>
-                            <input asp-for="correo" type="email" class="form-control formField" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com">
-                            <span class="text-danger" asp-validation-for="correo" class="text-danger"></span>
+                            <label for="exampleFormControlInput1" class="form-label">Nombre de usuario</label>
+                            <input asp-for="nombre" type="text" class="form-control formField" id="exampleFormControlInput1" placeholder="usuario123">
+                            <span class="text-danger" asp-validation-for="nombre" class="text-danger"></span>
+                            @if(Model.messageNombre != null){
+                                <span class="text-danger" asp-validation-for="nombre" class="text-danger">@Model.messageNombre</span>
+                            }
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput2" class="form-label">Contraseña</label>
                             <input asp-for="contraseña"type="text" class="form-control formField" id="exampleFormControlInput2" placeholder="Contraseña">
                             <span class="text-danger" asp-validation-for="contraseña" class="text-danger"></span>
+                            @if(Model.messageContra != null){
+                                <span class="text-danger" asp-validation-for="contraseña" class="text-danger">@Model.messageContra</span>
+                            }
                         </div>
                         <div class="forgotPassword mb-4">
                             <a href="OlvideContra">Olvidé mi contraseña</a>
