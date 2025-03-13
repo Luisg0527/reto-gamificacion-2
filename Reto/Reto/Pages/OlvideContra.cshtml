@@ -24,6 +24,14 @@
                 <form method="post">
                     <div class="myForm">
                         <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre de usuario</label>
+                            <input asp-for="usuario" type="text" class="form-control formField" id="exampleFormControlInput1" placeholder="usuario123">
+                            <span class="text-danger" asp-validation-for="usuario" class="text-danger"></span>
+                            @if(Model.messageUsuario != null){
+                                <span class="text-danger" asp-validation-for="usuario" class="text-danger">@Model.messageUsuario</span>
+                            }
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Nueva contraseña</label>
                             <input asp-for="contra" type="text" class="form-control formField" id="exampleFormControlInput1" placeholder="Contra123">
                             <span class="text-danger" asp-validation-for="contra" class="text-danger"></span>
@@ -32,6 +40,9 @@
                             <label for="exampleFormControlInput2" class="form-label">Confirmar contraseña</label>
                             <input asp-for="confirmaContra"type="text" class="form-control formField" id="exampleFormControlInput2" placeholder="Contra123">
                             <span class="text-danger" asp-validation-for="confirmaContra" class="text-danger"></span>
+                            @if(Model.messageContra != null){
+                                <span class="text-danger" asp-validation-for="usuario" class="text-danger">@Model.messageContra</span>
+                            }
                         </div>
                         <div class="buttons text-center">
                             <button type="submit" asp-page-handler="Reestablecer" class="btn btn-warning mb-3 ctaRC">Reestablecer contraseña</button>

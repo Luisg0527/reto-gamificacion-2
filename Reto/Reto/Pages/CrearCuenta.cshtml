@@ -29,6 +29,11 @@
                         <span class="text-danger" asp-validation-for="empleadoId" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                        <input asp-for="nombre" type="text" class="form-control formField" id="exampleFormControlInput1" placeholder="usuario123">
+                        <span class="text-danger" asp-validation-for="nombre" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Correo</label>
                         <input asp-for="correo" type="email" class="form-control formField" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com">
                         <span class="text-danger" asp-validation-for="correo" class="text-danger"></span>
