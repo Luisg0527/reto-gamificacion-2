@@ -5,11 +5,12 @@
 }
 <body>
     <div class="d-flex">
-        <div class="flex-grow-1 p-4; background-color: #F6F4F1;">
-            
-            <div class="col-md-3">
-                 <input type="date" class="form-control" asp-for="SelectedDate">
-            </div>
+        <div class="flex-grow-1 p-4" style="background-color: #F6F4F1;">
+            <form method="get">
+                <div class="col-md-3">
+                    <input type="date" class="form-control" asp-for="SelectedDate" onchange="this.form.submit()">
+                </div>
+            </form>
 
             <div class="row mt-4">
                 <div class="col-md-3">
@@ -37,7 +38,6 @@
                     </div>
                 </div>
             </div>
-            
 
             <div class="row mt-4">
                 <div class="col-md-6">
@@ -55,5 +55,7 @@
             </div>
         </div>
     </div>
+
+    <h1>@Model.metricas.fecha</h1>
 </body>
 </html>
