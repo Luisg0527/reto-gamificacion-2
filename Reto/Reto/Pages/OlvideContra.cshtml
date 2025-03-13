@@ -1,0 +1,42 @@
+@page
+@model OlvideContraModel
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Reto</title>
+        <script type="importmap"></script>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Reto.styles.css" asp-append-version="true" />
+    </head>
+    <body>
+        <div class="content d-flex flex-column align-items-center justify-content-center">
+        <div class="signIn d-flex flex-column">
+                <img src="~/img/logoOxxo.png" alt="logo_oxxo" class="logo mx-auto d-block mb-4">
+
+                <form method="post">
+                    <div class="myForm">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nueva contraseña</label>
+                            <input asp-for="contra" type="text" class="form-control formField" id="exampleFormControlInput1" placeholder="Contra123">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput2" class="form-label">Confirmar contraseña</label>
+                            <input asp-for="confirmaContra"type="text" class="form-control formField" id="exampleFormControlInput2" placeholder="Contra123">
+                        </div>
+                        <div class="buttons text-center">
+                            <button type="submit" asp-page-handler="Reestablecer" class="btn btn-warning mb-3 ctaRC">Reestablecer contraseña</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

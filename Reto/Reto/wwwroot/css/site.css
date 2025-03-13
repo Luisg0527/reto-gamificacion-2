@@ -29,3 +29,129 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.logo {
+  width: 201px;
+  height: 102px;
+}
+
+.forgotPassword a {
+  text-decoration: none;
+  color: #383838;
+}
+.forgotPassword a:hover {
+  text-decoration: underline;
+}
+
+.signIn {
+  width: 424px;
+  height: 510px;
+}
+
+.ctaIS, .ctaRC {
+  background-color: #ffcc57;
+  color: #000000;
+  border-color: #ffcc57;
+  width: 200px;
+}
+
+.ctaIS:hover, .ctaRC:hover {
+  background-color: #f2bf47!important;
+  border-color: #f2bf47!important;
+  color: #000000;
+}
+
+.ctaIS:focus, .ctaRC:focus {
+  background-color: #f2bf47 !important;
+  border-color: #f2bf47 !important;
+  color: #000000 !important;
+  outline-color:#ffe45cd4 !important;
+  box-shadow: 0 0 0 0.25rem #ffe45cd4 !important;
+}
+
+.ctaCC {
+  background-color: #383838;
+  color: #ffffff;
+  border-color: #383838;
+  width: 200px;
+}
+
+.ctaCC:hover {
+  background-color: #2a2a2a!important;
+  border-color: #2a2a2a!important;
+  color: #ffffff;
+}
+
+.ctaCC:focus {
+  background-color: #2a2a2a !important;
+  border-color: #2a2a2a !important;
+  color: #2a2a2a !important;
+  outline-color:#2a2a2a !important;
+  box-shadow: 0 0 0 0.25rem #383838a2 !important;
+  color: #ffffff !important;
+}
+
+/* ---- Pagina Crear Cuenta ---- */
+
+.crearCuenta-ctaCC {
+  background-color: #ffcc57;
+  color: #000000;
+  border-color: #ffcc57;
+  width: 200px;
+}
+
+.crearCuenta-ctaCC:hover {
+  background-color: #f2bf47!important;
+  border-color: #f2bf47!important;
+  color: #000000;
+}
+
+.crearCuenta-ctaCC:focus {
+  background-color: #f2bf47 !important;
+  border-color: #f2bf47 !important;
+  color: #000000 !important;
+  outline-color:#ffe45cd4 !important;
+  box-shadow: 0 0 0 0.25rem #ffe45cd4 !important;
+}
+
+.crearCuenta-ctaIS {
+  background-color: #383838;
+  color: #ffffff;
+  border-color: #383838;
+  width: 200px;
+}
+
+.crearCuenta-ctaIS:hover {
+  background-color: #2a2a2a!important;
+  border-color: #2a2a2a!important;
+  color: #ffffff;
+}
+
+.crearCuenta-ctaIS:focus {
+  background-color: #2a2a2a !important;
+  border-color: #2a2a2a !important;
+  color: #2a2a2a !important;
+  outline-color:#2a2a2a !important;
+  box-shadow: 0 0 0 0.25rem #383838a2 !important;
+  color: #ffffff !important;
+}
+
+.formField:focus {
+  border-color: #f2bf47 !important;
+  outline:none !important;
+  box-shadow: none !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ctaRC {
+  width: 250px;
+}
+
+.content {
+  height: 100vh;
+}
