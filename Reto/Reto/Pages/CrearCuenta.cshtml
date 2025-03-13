@@ -1,0 +1,48 @@
+@page
+@model CrearCuentaModel
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Reto</title>
+        <script type="importmap"></script>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Reto.styles.css" asp-append-version="true" />
+    </head>
+    <body>
+        <div class="content d-flex flex-column align-items-center justify-content-center">
+        <div class="signIn d-flex flex-column">
+            <img src="~/img/logoOxxo.png" alt="logo_oxxo" class="logo mx-auto d-block mb-4">
+
+            <form method="post">
+                <div class="CCmyForm d-flex flex-column">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">ID empleado</label>
+                        <input asp-for="empleadoId" type="number" class="form-control formField" id="exampleFormControlInput1" placeholder="000000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Correo</label>
+                        <input asp-for="correo" type="email" class="form-control formField" id="exampleFormControlInput1" placeholder="nombre@ejemplo.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput2" class="form-label">Contraseña</label>
+                        <input asp-for="contraseña" type="text" class="form-control formField" id="exampleFormControlInput2" placeholder="Contraseña">
+                    </div>
+                    <div class="buttons align-self-center">
+                        <button type="submit" asp-page-handler="CCCrearCuenta" type="button" class="btn btn-warning crearCuenta-ctaCC mb-3">Crear cuenta</button>
+                        <br>
+                        <button type="submit" asp-page-handler="IniciarSesion" class="btn btn-warning crearCuenta-ctaIS">Ya tengo cuenta</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </body>
+</html>

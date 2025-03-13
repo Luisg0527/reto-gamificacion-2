@@ -5,15 +5,18 @@ namespace Reto.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
-    {
-        _logger = logger;
-    }
+    public int? empleadoId {get; set;}
+    public string? contraseña {get; set;}
 
     public void OnGet()
     {
 
+    }
+
+    public void OnPostCrearCuenta() {
+        Response.Redirect("CrearCuenta");
+    }
+    public void OnPostIniciarSesion() {
+        Response.Redirect("Privacy");
     }
 }
