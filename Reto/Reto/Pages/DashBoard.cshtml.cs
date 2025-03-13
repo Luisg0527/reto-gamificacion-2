@@ -1,27 +1,24 @@
 using Reto.Model;
-using Reto.Pages;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-
 
 public class DashboardModel : PageModel
 {
-
     private readonly DataBaseContext _context;
+
+    [BindProperty(SupportsGet = true)]
     public DateTime SelectedDate { get; set; } = DateTime.Today;
 
-  
-    public MetricasDash metricas {get;set;}
+    public MetricasDash metricas { get; set; } = new MetricasDash(0, 0, 0, 0, 0, 0, DateTime.MinValue);
 
-     public DashboardModel(DataBaseContext context){
+    public DashboardModel(DataBaseContext context)
+    {
         _context = context;
     }
 
-
     public void OnGet()
     {
-      metricas = _context.getMetricas();
-
+        metricas = _context.getMetricas(SelectedDate);
     }
 }

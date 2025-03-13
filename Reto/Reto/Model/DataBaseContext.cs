@@ -17,33 +17,46 @@ namespace Reto.Model
             return new MySqlConnection(ConnectionString);
         }
 
-        public MetricasDash getMetricas(){
-            MetricasDash metricas = new MetricasDash(0,0,0,0,0,0);
-            using(MySqlConnection connection = GetConnection()){
-                connection.Open();
-                string query = "Select * from metricasusuario where id_usuario = 1";
+        public MetricasDash getMetricas(DateTime selectedDate)
+        {
+            MetricasDash metricas = new MetricasDash(0, 0, 0, 0, 0, 0, DateTime.MinValue);
 
-                using (MySqlCommand cmd = new MySqlCommand (query,connection)){
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para obtener la SUMA de cada columna donde la fecha sea menor a selectedDate
+                string query = @"SELECT 
+                                    SUM(ingresos) AS totalIngresos, 
+                                    SUM(ganancias) AS totalGanancias, 
+                                    SUM(ordenes) AS totalOrdenes, 
+                                    SUM(visitas) AS totalVisitas
+                                FROM metricasusuario 
+                                WHERE id_usuario = 1 AND fecha < @SelectedDate";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@SelectedDate", selectedDate);
+
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             metricas = new MetricasDash(
-                            
-                                reader.GetInt32("idmetricasUsuario"),
-                                reader.GetInt32("id_usuario"),
-                                reader.GetFloat("ingresos"),
-                                reader.GetFloat("ganancias"),
-                                reader.GetInt32("ordenes"),
-                                reader.GetInt32("visitas")
+                                0,  
+                                1,  
+                                reader.GetFloat("totalIngresos"),
+                                reader.GetFloat("totalGanancias"),
+                                reader.GetInt32("totalOrdenes"),
+                                reader.GetInt32("totalVisitas"),
+                                selectedDate  
                             );
                         }
                     }
-
                 }
             }
             return metricas;
-            
         }
+
     }
 }
