@@ -8,6 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+// Sesiones
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+ options.IdleTimeout = TimeSpan.FromHours(1);
+ options.Cookie.HttpOnly = true;
+ options.Cookie.IsEssential = true;
+});
+
+// Base de datos
 builder.Services.Add(new ServiceDescriptor(typeof(DataBaseContext), new DataBaseContext()));
 
 var app = builder.Build();
@@ -25,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapStaticAssets();
 app.MapRazorPages()
