@@ -1,0 +1,55 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Reporte de Tienda";
+}
+
+<body class="bg-light">
+    <div class="container mt-4">
+        <div class="text-center mb-4">
+            <img src="images\oxxo-logo.png" style="height: 100px" />
+            <h2>@ViewData["Title"]</h2>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <input type="date" class="form-control" asp-for="SelectedDate">
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="p-3 bg-white shadow rounded">
+                    Ingresos Totales
+                    <br><strong>$@Model.metricas.ingresos</strong>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 bg-white shadow rounded">
+                    Ganancia Neta Total
+                    <br><strong>$@Model.metricas.ganancias</strong>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 bg-white shadow rounded">
+                    Órdenes Totales
+                    <br><strong>@Model.metricas.ordenes</strong>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 bg-white shadow rounded">
+                    Visitas Totales a Tiendas
+                    <br><strong>@Model.metricas.visistas</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <img src="/images/bar-chart.jpg">
+            </div>
+            <div class="col-md-6">
+                <img src="/images/pie-chart.jpg"
+            </div>
+        </div>
+    </div>
+</body>
+</html>
