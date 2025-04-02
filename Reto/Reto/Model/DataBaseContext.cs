@@ -130,5 +130,36 @@ namespace Reto.Model
             cmd.ExecuteNonQuery();
             conexion.Close();
         }
+
+    public List<Usuario> GetLeaderboard()
+    {
+        List<Usuario> leaderboard = new List<Usuario>();
+
+        using (MySqlConnection connection = GetConnection())
+        {
+            connection.Open();
+            string query = "SELECT * FROM Usuario ORDER BY nivel DESC";
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    leaderboard.Add(new Usuario(
+                        reader.GetInt32("id_usuario"),
+                        reader.GetString("nombre_usuario"),
+                        reader.GetString("password"),
+                        reader.GetInt32("puntuacion"),
+                        reader.GetInt32("nivel"),
+                        reader.GetInt32("retos_completados"),
+                        reader.GetString("correo"),
+                        reader.GetInt32("id_empleado"),
+                        reader.GetString("imagen")
+                    ));
+                }
+            }
+        }
+
+        return leaderboard;
+    }
     }
 }

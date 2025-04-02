@@ -3,65 +3,40 @@
 @{
     ViewData["Title"] = "Leaderboard";
 }
-
-    <style>
-        body {
-            background-color: #f8f8f8;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background: white;
-            padding: 20px;
-        }
-        .profile-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: #ccc;
-            margin-bottom: 15px;
-        }
-        .leaderboard-card {
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 <body>
-    <div class="d-flex">
-        <div class="container-fluid p-4">
-            <button class="btn btn-warning mb-3">Jugar Ahora</button>
-            <div class="d-flex justify-content-between">
-                <button class="btn btn-light">Diario</button>
-                <button class="btn btn-light">Mensual</button>
-            </div>
-            <div class="row text-center mt-4">
-                <div class="col-md-4">
-                    <div class="leaderboard-card">
-                        <span class="badge bg-secondary">52</span>
-                        <img src="#" class="rounded-circle" width="80">
-                        <p>🏆 8,250</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="leaderboard-card" style="border: 2px solid gold;">
-                        <span class="badge bg-primary">64</span>
-                        <img src="#" class="rounded-circle" width="80">
-                        <p>🏆 10,000</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="leaderboard-card">
-                        <span class="badge bg-warning">41</span>
-                        <img src="#" class="rounded-circle" width="80">
-                        <p>🏆 6,250</p>
-                    </div>
+    <div class="container leaderboard-container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="leaderboard-card ">
+                    <div class="level-badge">@Model.Usuarios[1].nivel</div>
+                    <img src="@Model.Usuarios[1].imagen" class="profile-img" alt="Profile">
+                    <div class="rank-badge silver">🥈</div>
+                    <h5>@Model.Usuarios[1].nombre_usuario</h5>
+                    <p>Puntos: @Model.Usuarios[1].puntuacion</p>
                 </div>
             </div>
-            <table class="table mt-4">
-                <thead>
+            <div class="col-md-4">
+                <div class="leaderboard-card first-place">
+                    <div class="level-badge">@Model.Usuarios[0].nivel</div>
+                    <img src="@Model.Usuarios[0].imagen" class="profile-img" alt="Profile">
+                    <div class="rank-badge gold">🥇</div>
+                    <h5>@Model.Usuarios[0].nombre_usuario</h5>
+                    <p>Puntos: @Model.Usuarios[0].puntuacion</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="leaderboard-card">
+                    <div class="level-badge">@Model.Usuarios[2].nivel</div>
+                    <img src="@Model.Usuarios[2].imagen" class="profile-img" alt="Profile">
+                    <div class="rank-badge bronze">🥉</div>
+                    <h5>@Model.Usuarios[2].nombre_usuario</h5>
+                    <p>Puntos: @Model.Usuarios[2].puntuacion</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 leaderboard-card-tb">
+            <table class="table">
+                <thead class="thead">
                     <tr>
                         <th>Lugar</th>
                         <th>Usuario</th>
@@ -70,27 +45,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>🥇</td>
-                        <td>Juan Pérez</td>
-                        <td>64</td>
-                        <td>10,000</td>
-                    </tr>
-                    <tr>
-                        <td>🥈</td>
-                        <td>María González</td>
-                        <td>52</td>
-                        <td>8,250</td>
-                    </tr>
-                    <tr>
-                        <td>🥉</td>
-                        <td>Carlos Ramírez</td>
-                        <td>41</td>
-                        <td>6,250</td>
-                    </tr>
+                    @for (int i = 0; i < Model.Usuarios.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1) @if (i == 0) { <span>🥇</span> } else if (i == 1) { <span>🥈</span> } else if (i == 2) { <span>🥉</span> }</td>
+                            <td>@Model.Usuarios[i].nombre_usuario</td>
+                            <td>@Model.Usuarios[i].nivel</td>
+                            <td>@Model.Usuarios[i].puntuacion</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 </body>
-</html>
+

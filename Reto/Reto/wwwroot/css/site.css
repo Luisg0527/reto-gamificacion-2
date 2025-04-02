@@ -169,3 +169,98 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: 700;
   font-style: normal;
 }
+
+
+body {
+  background-color: #f8f8f8;
+}
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: white;
+  padding: 20px;
+}
+
+.leaderboard-container {
+  max-width: 1234px;
+  margin: auto;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 100px;
+}
+.leaderboard-card {
+  background: linear-gradient(180deg, white 0%, rgba(254.88, 254.88, 254.88, 0) 100%);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.first-place {
+  margin-top: -40px;
+}
+
+.leaderboard-card-tb {
+  background: transparent;
+  border-radius: 14px;
+  padding: 20px;
+}
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+}
+.rank-badge {
+  width: 70px;
+  height: 70px;
+  margin: 10px auto;
+  background: #E9E9E9;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  position: relative !important;
+}
+
+.bronze{
+  background-color: #AD8A56;
+}
+
+.gold{
+  background-color: #C9B037;
+}
+
+.silver{
+  background-color: #D7D7D7;
+}
+
+th {
+  background-color: transparent !important;
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+tr {
+  margin: 10px;}
+
+.level-badge {
+  width: 40px;
+  height: 40px;
+  background: #e7001a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  top: 25px;
+  left: 65px;
+}
+
+
+
+
