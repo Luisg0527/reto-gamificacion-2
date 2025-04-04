@@ -8,8 +8,9 @@ public class Usuario
 	public int retos_completados {get;set;}
 	public string correo {get;set;}
 	public int id_empleado {get;set;}
+	public string imagen { get; set; }
 
-	public Usuario(int id_usuario_,string nombre_usuario_,string password_,int puntuacion_,int nivel_,int retos_completados_,string correo_,int id_empleado_)
+	public Usuario(int id_usuario_,string nombre_usuario_,string password_,int puntuacion_,int nivel_,int retos_completados_,string correo_,int id_empleado_, string imagen_)
 	{
 		this.id_usuario = id_usuario_;
 		this.nombre_usuario = nombre_usuario_;
@@ -19,5 +20,6 @@ public class Usuario
 		this.retos_completados = retos_completados_;
 		this.correo = correo_;
 		this.id_empleado = id_empleado_;
+		this.imagen = imagen_;
 	}
 }

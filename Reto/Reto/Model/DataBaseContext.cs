@@ -10,7 +10,7 @@ namespace Reto.Model
     public class DataBaseContext{
         public string ConnectionString { get; set; }
         public DataBaseContext(){
-            ConnectionString = "Server=127.0.0.1;Port=3306;Database=OxxoDB;Uid=root;password=Rayo2008;";
+            ConnectionString = "Server=addServer;Port=14683;Database=OxxoDB;Uid=avnadmin;password='ADDPASSWORD';";
         }
 
         private MySqlConnection GetConnection(){
@@ -31,7 +31,7 @@ namespace Reto.Model
                                     SUM(ganancias) AS totalGanancias, 
                                     SUM(ordenes) AS totalOrdenes, 
                                     SUM(visitas) AS totalVisitas
-                                FROM metricasusuario 
+                                FROM metricasUsuario 
                                 WHERE id_usuario = 1 AND fecha < @SelectedDate";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
@@ -130,5 +130,36 @@ namespace Reto.Model
             cmd.ExecuteNonQuery();
             conexion.Close();
         }
+
+    public List<Usuario> GetLeaderboard()
+    {
+        List<Usuario> leaderboard = new List<Usuario>();
+
+        using (MySqlConnection connection = GetConnection())
+        {
+            connection.Open();
+            string query = "SELECT * FROM Usuario ORDER BY nivel DESC";
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    leaderboard.Add(new Usuario(
+                        reader.GetInt32("id_usuario"),
+                        reader.GetString("nombre_usuario"),
+                        reader.GetString("password"),
+                        reader.GetInt32("puntuacion"),
+                        reader.GetInt32("nivel"),
+                        reader.GetInt32("retos_completados"),
+                        reader.GetString("correo"),
+                        reader.GetInt32("id_empleado"),
+                        reader.GetString("imagen")
+                    ));
+                }
+            }
+        }
+
+        return leaderboard;
+    }
     }
 }

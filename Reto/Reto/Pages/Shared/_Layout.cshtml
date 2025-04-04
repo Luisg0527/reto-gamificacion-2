@@ -19,10 +19,14 @@
         <!-- Sidebar -->
         <div class="sidebar text-center">
             <div class="profile-section my-4">
-            <div class="d-flex justify-content-center">
-                <div class="rounded-circle bg-secondary" style="width: 100px; height: 100px;"></div>
-            </div>
-            <h3 class="mt-2 poppins-bold">Paolo2</h5>
+                <div class="d-flex justify-content-center">
+                    <div class="rounded-circle bg-secondary" style="width: 100px; height: 100px;"></div>
+                </div>
+                <h3 class="mt-2 poppins-bold">
+                    @{
+                        var nombreSesion = Context.Session.GetString("nombreSesion") ?? "Usuario";                      }
+                    @nombreSesion
+                </h3>
             </div>
             <nav class="navbar navbar-light">
             <div class="navbar-collapse">
@@ -38,8 +42,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/Privacy">
-                    <i class="fas fa-chalkboard-teacher"></i> Capacitación
+                    <a class="nav-link" asp-area="" asp-page="/LeaderBoard">
+                    <i class="fas fa-chalkboard-teacher"></i> Leaderboard
                     </a>
                 </li>
                 <li class="nav-item">
