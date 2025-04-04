@@ -17,9 +17,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-}
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
@@ -186,7 +183,6 @@ body {
   margin: auto;
   border-radius: 14px;
   padding: 20px;
-  margin-top: 100px;
 }
 .leaderboard-card {
   background: linear-gradient(180deg, white 0%, rgba(254.88, 254.88, 254.88, 0) 100%);
@@ -201,7 +197,23 @@ body {
 .leaderboard-card-tb {
   background: transparent;
   border-radius: 14px;
-  padding: 20px;
+  margin: 20px;
+  max-height: 400px; 
+  overflow-y: auto;
+  overflow-x: hidden; 
+  margin-top: 40px;
+}
+
+.leaderboard-card-tb table{
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+.leaderboard-card-tb table thead {
+  position: sticky;
+  top: 0px; 
+  background-color: #fff; 
+  z-index: 1; 
 }
 .profile-img {
   width: 150px;
@@ -222,16 +234,17 @@ body {
 }
 
 .bronze{
-  background-color: #AD8A56;
+  background-color: transparent;
 }
 
 .gold{
-  background-color: #C9B037;
+  background-color: transparent;
 }
 
 .silver{
-  background-color: #D7D7D7;
+  background-color: transparent;
 }
+
 
 th {
   background-color: transparent !important;
@@ -248,7 +261,7 @@ tr {
 .level-badge {
   width: 40px;
   height: 40px;
-  background: #e7001a;
+  background: #ff3131;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -261,6 +274,37 @@ tr {
   left: 65px;
 }
 
+.username {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0.5rem 0;
+  text-transform: capitalize;
+}
 
+.points {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
+
+.btn-play {
+  background-color: #ffcc57;
+  color: #000000;
+  border-color: #ffcc57;
+  width: 200px;
+}
+
+.btn-play:hover {
+  background-color: #f2bf47!important;
+  border-color: #f2bf47!important;
+  color: #000000;
+
+}
+
+.highlight-current-user {
+  background-color: #ffcc57 !important; 
+  font-weight: bold; 
+}
 
 

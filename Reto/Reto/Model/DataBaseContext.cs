@@ -10,7 +10,7 @@ namespace Reto.Model
     public class DataBaseContext{
         public string ConnectionString { get; set; }
         public DataBaseContext(){
-            ConnectionString = "Server=127.0.0.1;Port=3306;Database=OxxoDB;Uid=root;password='Cacota33;';";
+            ConnectionString = "Server=addServer;Port=14683;Database=OxxoDB;Uid=avnadmin;password='ADDPASSWORD';";
         }
 
         private MySqlConnection GetConnection(){
@@ -31,7 +31,7 @@ namespace Reto.Model
                                     SUM(ganancias) AS totalGanancias, 
                                     SUM(ordenes) AS totalOrdenes, 
                                     SUM(visitas) AS totalVisitas
-                                FROM metricasusuario 
+                                FROM metricasUsuario 
                                 WHERE id_usuario = 1 AND fecha < @SelectedDate";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
