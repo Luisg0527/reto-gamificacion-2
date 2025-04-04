@@ -20,12 +20,12 @@
         <div class="sidebar text-center">
             <div class="profile-section my-4">
                 <div class="d-flex justify-content-center">
-                    <div class="rounded-circle bg-secondary" style="width: 100px; height: 100px;"></div>
+                    <img src="~/images/ppdefault.png" alt="Default Profile Picture" class="rounded-circle bg-secondary" style="width: 150px; height: 150px;" />
                 </div>
                 <h3 class="mt-2 poppins-bold">
                     @{
                         var nombreSesion = Context.Session.GetString("nombreSesion") ?? "Usuario";                      }
-                    @nombreSesion
+                        @nombreSesion
                 </h3>
             </div>
             <nav class="navbar navbar-light">
@@ -59,7 +59,8 @@
         <!-- Main Content -->
         <div class="main-content flex-grow-1">
             <!-- Header -->
-            <div class="header">
+            <div class="header d-flex justify-content-between align-items-center">
+                <!-- Logo -->
                 <img class="header-img" src="~/images/oxxo-logo.png" alt="OXXO" style="height: 100px; position: relative; top: 40px; left: 50%; transform: translateX(-50%);" >
             </div>
 

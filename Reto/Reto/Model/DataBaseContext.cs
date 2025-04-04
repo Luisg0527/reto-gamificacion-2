@@ -10,9 +10,8 @@ namespace Reto.Model
     public class DataBaseContext{
         public string ConnectionString { get; set; }
         public DataBaseContext(){
-            ConnectionString = "Server=addServer;Port=14683;Database=OxxoDB;Uid=avnadmin;password='ADDPASSWORD';";
+        ConnectionString = "Server=dicky;Port=123456;Database=oxxodb;Uid=avnadmin;password=dookie;";        
         }
-
         private MySqlConnection GetConnection(){
             return new MySqlConnection(ConnectionString);
         }
