@@ -10,7 +10,7 @@
             <span class="ms-2 poppins-bold" style="font-size: 1.25rem;">
                 @{
                     var currentUser = Model.Usuarios.FirstOrDefault(u => u.nombre_usuario == HttpContext.Session.GetString("nombreSesion"));               
-                    var Coins = currentUser?.puntuacion ?? 0; 
+                    var Coins = currentUser?.monedas ?? 0; 
                 }
                 @Coins
             </span>
@@ -24,7 +24,7 @@
                     <img src="@Model.Usuarios[1].imagen" class="profile-img" alt="Profile">
                     <div class="rank-badge silver">🥈</div>
                       <h5 class="username">@Model.Usuarios[1].nombre_usuario</h5>
-                    <p class="points">Puntos: @Model.Usuarios[1].puntuacion</p>
+                    <p class="points">Puntos: @Model.Usuarios[1].monedas</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -33,7 +33,7 @@
                     <img src="@Model.Usuarios[0].imagen" class="profile-img" alt="Profile">
                     <div class="rank-badge gold">🥇</div>
                       <h5 class="username">@Model.Usuarios[0].nombre_usuario</h5>
-                    <p class="points">Puntos: @Model.Usuarios[0].puntuacion</p>
+                    <p class="points">Puntos: @Model.Usuarios[0].monedas</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -42,7 +42,7 @@
                     <img src="@Model.Usuarios[2].imagen" class="profile-img" alt="Profile">
                     <div class="rank-badge bronze">🥉</div>
                     <h5 class="username">@Model.Usuarios[2].nombre_usuario</h5>
-                    <p class="points">Puntos: @Model.Usuarios[2].puntuacion</p>
+                    <p class="points">Puntos: @Model.Usuarios[2].monedas</p>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
                             <td>@(i + 1) @if (i == 0) { <span>🥇</span> } else if (i == 1) { <span>🥈</span> } else if (i == 2) { <span>🥉</span> }</td>
                             <td>@Model.Usuarios[i].nombre_usuario</td>
                             <td>@Model.Usuarios[i].nivel</td>
-                            <td>@Model.Usuarios[i].puntuacion</td>
+                            <td>@Model.Usuarios[i].monedas</td>
                         </tr>
                     }
                 </tbody>
