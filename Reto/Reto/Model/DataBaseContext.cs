@@ -7,12 +7,14 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Reto.Model
 {
-    public class DataBaseContext{
+    public class DataBaseContext
+    {
         public string ConnectionString { get; set; }
-        public DataBaseContext(){
-        ConnectionString = "Server=dicky;Port=123456;Database=oxxodb;Uid=avnadmin;password=dookie;";        
-        }
-        private MySqlConnection GetConnection(){
+        public DataBaseContext()
+        {
+            ConnectionString = "Server=addServer;Port=14683;Database=OxxoDB;Uid=avnadmin;password='ADDPASSWORD';";        }
+        private MySqlConnection GetConnection()
+        {
             return new MySqlConnection(ConnectionString);
         }
 
@@ -42,13 +44,13 @@ namespace Reto.Model
                         if (reader.Read())
                         {
                             metricas = new MetricasDash(
-                                0,  
-                                1,  
+                                0,
+                                1,
                                 reader.GetFloat("totalIngresos"),
                                 reader.GetFloat("totalGanancias"),
                                 reader.GetInt32("totalOrdenes"),
                                 reader.GetInt32("totalVisitas"),
-                                selectedDate  
+                                selectedDate
                             );
                         }
                     }
@@ -57,14 +59,16 @@ namespace Reto.Model
             return metricas;
         }
 
-        public bool verificarUsuario(string _nombre) {
+        public bool verificarUsuario(string _nombre)
+        {
             MySqlConnection conexion = GetConnection();
             conexion.Open();
             string cmdString = "SELECT COUNT(*) AS existe FROM Usuario WHERE nombre_usuario = '" + _nombre + "'";
             bool existe = false;
             MySqlCommand cmd = new MySqlCommand(cmdString, conexion);
 
-            using (MySqlDataReader reader = cmd.ExecuteReader()) {
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
                 if (reader.Read())
                 {
                     existe = reader.GetInt32("existe") > 0;
@@ -74,14 +78,16 @@ namespace Reto.Model
             return existe;
         }
 
-        public bool verificarContra(string _nombre, string _contra) {
+        public bool verificarContra(string _nombre, string _contra)
+        {
             MySqlConnection conexion = GetConnection();
             conexion.Open();
             string cmdString = "SELECT COUNT(*) AS existe FROM Usuario WHERE nombre_usuario = '" + _nombre + "' AND password = '" + _contra + "'";
             bool ContraExiste = false;
             MySqlCommand cmd = new MySqlCommand(cmdString, conexion);
 
-            using (MySqlDataReader reader = cmd.ExecuteReader()) {
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
                 if (reader.Read())
                 {
                     ContraExiste = reader.GetInt32("existe") > 0;
@@ -91,14 +97,16 @@ namespace Reto.Model
             return ContraExiste;
         }
 
-        public void crearUsuario(int _empId, string _nombre, string _contra, string _correo) {
+        public void crearUsuario(int _empId, string _nombre, string _contra, string _correo)
+        {
             MySqlConnection conexion = GetConnection();
             conexion.Open();
             string cmdString = "SELECT MAX(id_usuario) AS last FROM Usuario";
             int lastId = 0;
-            
+
             MySqlCommand cmd = new MySqlCommand(cmdString, conexion);
-            using (MySqlDataReader reader = cmd.ExecuteReader()) {
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
                 if (reader.Read())
                 {
                     lastId = reader.GetInt32("last");
@@ -118,7 +126,8 @@ namespace Reto.Model
             conexion.Close();
         }
 
-        public void cambiarContra(string _usuario, string _nuevaContra) {
+        public void cambiarContra(string _usuario, string _nuevaContra)
+        {
             MySqlConnection conexion = GetConnection();
             conexion.Open();
 
@@ -130,35 +139,375 @@ namespace Reto.Model
             conexion.Close();
         }
 
-    public List<Usuario> GetLeaderboard()
-    {
-        List<Usuario> leaderboard = new List<Usuario>();
-
-        using (MySqlConnection connection = GetConnection())
+        public List<Usuario> GetLeaderboard()
         {
-            connection.Open();
-            string query = "SELECT * FROM Usuario ORDER BY nivel DESC";
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            List<Usuario> leaderboard = new List<Usuario>();
+
+            using (MySqlConnection connection = GetConnection())
             {
-                while (reader.Read())
+                connection.Open();
+                string query = "SELECT * FROM Usuario ORDER BY nivel DESC";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    leaderboard.Add(new Usuario(
-                        reader.GetInt32("id_usuario"),
-                        reader.GetString("nombre_usuario"),
-                        reader.GetString("password"),
-                        reader.GetInt32("puntuacion"),
-                        reader.GetInt32("nivel"),
-                        reader.GetInt32("retos_completados"),
-                        reader.GetString("correo"),
-                        reader.GetInt32("id_empleado"),
-                        reader.GetString("imagen")
-                    ));
+                    while (reader.Read())
+                    {
+                        leaderboard.Add(new Usuario(
+                            reader.GetInt32("id_usuario"),
+                            reader.GetString("nombre_usuario"),
+                            reader.GetString("password"),
+                            reader.GetInt32("puntuacion"),
+                            reader.GetInt32("nivel"),
+                            reader.GetInt32("retos_completados"),
+                            reader.GetString("correo"),
+                            reader.GetInt32("id_empleado"),
+                            reader.GetString("imagen")
+                        ));
+                    }
+                }
+            }
+
+            return leaderboard;
+        }
+
+        public List<Pregunta> obtenerPregunta()
+        {
+            Pregunta pregunta;
+            List<Pregunta> ListaPreguntas = new List<Pregunta>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para obtener la SUMA de cada columna donde la fecha sea menor a selectedDate
+                string query = @"SELECT 
+                                p.id_pregunta,
+                                u.nombre_usuario,
+                                p.texto_pregunta,
+                                p.date,
+                                p.likes
+                            FROM 
+                                Pregunta p
+                            JOIN 
+                                Usuario u ON p.id_usuario = u.id_usuario;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            pregunta = new Pregunta();
+                            pregunta.id_pregunta = reader.GetInt32("id_pregunta");
+                            pregunta.nombre_usuario = reader.GetString("nombre_usuario");
+                            pregunta.texto_pregunta = reader.GetString("texto_pregunta");
+                            pregunta.likes = reader.GetInt32("likes");
+                            pregunta.date = reader.GetDateTime("date");
+                            pregunta.Respuestas = obtenerRespuesta(pregunta.id_pregunta);
+                            ListaPreguntas.Add(pregunta);
+                        }
+                    }
+                }
+            }
+            return ListaPreguntas;
+        }
+
+        //Obtener lista de Respuestas
+        public List<Respuesta> obtenerRespuesta(int id_pregunta)
+        {
+            Respuesta respuesta;
+            List<Respuesta> ListaRespuestas = new List<Respuesta>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para obtener la SUMA de cada columna donde la fecha sea menor a selectedDate
+                string query = @"SELECT 
+                                    r.id_respuesta,
+                                    u.nombre_usuario ,
+                                    r.texto_respuesta,
+                                    r.date,
+                                    r.likes
+                                FROM 
+                                    Foro f
+                                JOIN 
+                                    Respuesta r ON f.id_respuesta = r.id_respuesta
+                                JOIN 
+                                    Usuario u ON r.id_usuario = u.id_usuario
+                                WHERE 
+                                    f.id_pregunta = @id_pregunta;";
+
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@id_pregunta", id_pregunta);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            respuesta = new Respuesta();
+                            respuesta.id_respuesta = reader.GetInt32("id_respuesta");
+                            respuesta.nombre_usuario = reader.GetString("nombre_usuario");
+                            respuesta.texto_respuesta = reader.GetString("texto_respuesta");
+                            respuesta.likes = reader.GetInt32("likes");
+                            respuesta.date = reader.GetDateTime("date");
+                            ListaRespuestas.Add(respuesta);
+                        }
+                    }
+                }
+            }
+            return ListaRespuestas;
+        }
+
+        public void agregarLikePregunta(int id_pregunta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para actualizar los likes de una pregunta
+                string cmdString = @"UPDATE Pregunta
+                                SET likes = likes + 1
+                                WHERE id_pregunta = @id_pregunta;";
+
+                MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@id_pregunta", id_pregunta);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void agregarLikeRespuesta(int id_respuesta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para actualizar los likes de una pregunta
+                string cmdString = @"UPDATE Respuesta
+                                SET likes = likes + 1
+                                WHERE id_respuesta = @id_respuesta;";
+
+                MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@id_respuesta", id_respuesta);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void quitarLikePregunta(int id_pregunta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para actualizar los likes de una pregunta
+                string cmdString = @"UPDATE Pregunta
+                                SET likes = likes - 1
+                                WHERE id_pregunta = @id_pregunta;";
+
+                MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@id_pregunta", id_pregunta);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void quitarLikeRespuesta(int id_respuesta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para actualizar los likes de una pregunta
+                string cmdString = @"UPDATE Respuesta
+                                SET likes = likes - 1
+                                WHERE id_respuesta = @id_respuesta;";
+
+                MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@id_respuesta", id_respuesta);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void agregarPregunta(string texto_pregunta, int? id_usuario)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Query para actualizar los likes de una pregunta
+                string cmdString = @"INSERT INTO Pregunta (id_usuario, texto_pregunta, likes, date)
+                                    VALUES (@id_usuario,@texto_pregunta,@likes ,@date );";
+
+                MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@texto_pregunta", texto_pregunta);
+                cmd.Parameters.AddWithValue("@id_usuario", id_usuario);
+                cmd.Parameters.AddWithValue("@likes", 0);
+                cmd.Parameters.AddWithValue("@date", DateTime.Now);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void agregarRespuesta(string texto_respuesta, int? id_usuario, int id_pregunta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                // Comenzamos con la inserción en la tabla Respuesta
+                string cmdString = @"INSERT INTO Respuesta (id_usuario, texto_respuesta, likes, date)
+                             VALUES (@id_usuario, @texto_respuesta, @likes, @date);";
+
+                MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@texto_respuesta", texto_respuesta);
+                cmd.Parameters.AddWithValue("@id_usuario", id_usuario);
+                cmd.Parameters.AddWithValue("@likes", 0);
+                cmd.Parameters.AddWithValue("@date", DateTime.Now);
+                cmd.ExecuteNonQuery();
+
+                string cmdString2 = @"SELECT LAST_INSERT_ID();";
+                MySqlCommand idCmd = new MySqlCommand(cmdString2, connection);
+                int id_res = Convert.ToInt32(idCmd.ExecuteScalar());
+
+                // Ahora insertamos en la tabla Foro (o la tabla que tengas para asociar la pregunta con la respuesta)
+                string cmdForoString = @"INSERT INTO Foro (id_pregunta, id_respuesta)
+                                  VALUES (@id_pregunta, @id_respuesta);";
+
+                MySqlCommand cmdForo = new MySqlCommand(cmdForoString, connection);
+                cmdForo.Parameters.AddWithValue("@id_pregunta", id_pregunta); // El id de la pregunta que ya tienes
+                cmdForo.Parameters.AddWithValue("@id_respuesta", id_res); // El id de la respuesta recién insertada
+                cmdForo.ExecuteNonQuery();
+
+                connection.Close();
+            }
+        }
+
+        public bool UsuarioDioLikePregunta(int idUsuario, int idPregunta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = @"SELECT 1
+                         FROM LikesPreguntas
+                         WHERE id_usuario = @idUsuario AND id_pregunta = @idPregunta
+                         LIMIT 1;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    cmd.Parameters.AddWithValue("@idPregunta", idPregunta);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        bool liked = reader.Read();
+                        return liked;
+                    }
                 }
             }
         }
 
-        return leaderboard;
-    }
+
+        public void likePregunta(int idUsuario, int idPregunta, bool liked)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                if (liked)
+                {
+                    quitarLikePregunta(idPregunta);
+                    string cmdString = @"DELETE FROM LikesPreguntas
+                                    WHERE id_usuario = @idUsuario AND id_pregunta = @idPregunta;";
+
+                    MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    cmd.Parameters.AddWithValue("@idPregunta", idPregunta);
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                else
+                {
+                    agregarLikePregunta(idPregunta);
+                    string cmdString = @"INSERT INTO LikesPreguntas (id_usuario, id_pregunta)
+                                        VALUES (@idUsuario, @idPregunta);";
+
+                    MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                    cmd.Parameters.AddWithValue("@idPregunta", idPregunta);
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+            }
+        }
+
+        public bool UsuarioDioLikeRespuesta(int idUsuario, int idRespuesta)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = @"SELECT 1
+                         FROM LikesRespuestas
+                         WHERE id_usuario = @idUsuario AND id_respuesta = @idRespuesta
+                         LIMIT 1;";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    cmd.Parameters.AddWithValue("@idRespuesta", idRespuesta);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        bool liked = reader.Read();
+                        return liked;
+                    }
+                }
+            }
+        }
+
+
+        public void likeRespuesta(int idUsuario, int idRespuesta, bool liked)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                if (liked)
+                {
+                    quitarLikeRespuesta(idRespuesta);
+                    string cmdString = @"DELETE FROM LikesRespuestas
+                                    WHERE id_usuario = @idUsuario AND id_respuesta = @idRespuesta;";
+
+                    MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    cmd.Parameters.AddWithValue("@idRespuesta", idRespuesta);
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                else
+                {
+                    agregarLikeRespuesta(idRespuesta);
+                    string cmdString = @"INSERT INTO LikesRespuestas (id_usuario, id_respuesta)
+                                        VALUES (@idUsuario, @idRespuesta);";
+
+                    MySqlCommand cmd = new MySqlCommand(cmdString, connection);
+                    cmd.Parameters.AddWithValue("@idRespuesta", idRespuesta);
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+            }
+        }
     }
 }
