@@ -1,0 +1,97 @@
+@page
+@model Reto.Pages.UsuarioModel
+@{
+    ViewData["Title"] = "Usuario";
+}
+
+<div class="container">
+    <main class="content">
+        <div class="user-profile">
+            <div class="user-header">
+                <div class="user-basic-info">
+                    <img src="~/images/ppdefault.png" alt="user" class="user-photo">
+                    <div class="user-details">
+                        <h2>@Model.UsuarioActual.nombre_usuario</h2>
+                        <p class="position">@Model.UsuarioActual.rol</p>
+                        <p class="location">@Model.UsuarioActual.ubicacion</p>
+                    </div>
+                </div>
+                <div class="user-level">
+                    <span class="level-number">Nivel @Model.UsuarioActual.nivel</span>
+                    <span class="coins">💰 @Model.UsuarioActual.monedas</span>
+                </div>
+            </div>
+
+            <div class="quote-section">
+                <p class="quote">@Model.UsuarioActual.quote</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stats">
+                    <div class="stat">
+                        <p class="stat-title">Lugar</p>
+                        <p class="stat-value">🥇 1</p>
+                    </div>
+                    <div class="stat">
+                        <p class="stat-title">Nivel</p>
+                        <p class="stat-value">@Model.UsuarioActual.nivel</p>
+                    </div>
+                    <div class="stat">
+                        <p class="stat-title">Puntos</p>
+                        <p class="stat-value">@Model.UsuarioActual.monedas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <div class="contact-details">
+                    <p><span class="icon">📞</span> <strong>Teléfono:</strong> @Model.UsuarioActual.telefono</p>
+                    <p><span class="icon">📧</span> <strong>Correo:</strong> @Model.UsuarioActual.correo</p>
+                    <p><span class="icon">📍</span> <strong>Ubicación:</strong> @Model.UsuarioActual.ubicacion</p>
+                </div>
+            </div>
+
+            @if (!Model.EditMode)
+            {
+                <div class="edit-button-container">
+                    <form method="post" asp-page-handler="ToggleEdit">
+                        <button type="submit" class="btn btn-primary edit-button">Editar Perfil</button>
+                    </form>
+                </div>
+            }
+        </div>
+
+        @if (Model.EditMode)
+        {
+            <div class="edit-profile-section">
+                <h3>Editar Información</h3>
+                <form method="post" asp-page-handler="Guardar">
+                    <!-- Campo oculto para id_usuario -->
+                    <input type="hidden" asp-for="UsuarioActual.id_usuario" />
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" asp-for="UsuarioActual.telefono" class="form-control" id="telefono" />
+                    </div>
+                    <div class="form-group">
+                        <label for="correo">Correo</label>
+                        <input type="email" asp-for="UsuarioActual.correo" class="form-control" id="correo" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ubicacion">Ubicación</label>
+                        <input type="text" asp-for="UsuarioActual.ubicacion" class="form-control" id="ubicacion" />
+                    </div>
+                    <div class="form-group">
+                        <label for="quote">Frase (Quote)</label>
+                        <input type="text" asp-for="UsuarioActual.quote" class="form-control" id="quote" />
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <!-- El enlace para cerrar el modo de edición alterna de nuevo el flag -->
+                        <a href="?handler=ToggleEdit" class="btn btn-secondary">Cerrar</a>
+                    </div>
+                </form>
+            </div>
+        }
+    </main>
+</div>

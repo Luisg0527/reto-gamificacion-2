@@ -119,3 +119,17 @@ button.accept-policy {
 .header input[type="date"] {
   width: auto;
 }
+
+.puntuacion-section {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.puntuacion-section i {
+  color: #FFD700; /* Gold color for the coin icon */
+}
+
+.puntuacion-section span {
+  margin-left: 8px;
+  font-weight: bold;
+}

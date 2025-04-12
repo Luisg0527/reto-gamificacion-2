@@ -1,0 +1,81 @@
+@page
+@model LeaderboardModel
+@{
+    ViewData["Title"] = "Leaderboard";
+}
+<body>
+        <!-- Puntuación -->
+        <div class="puntuacion-section d-flex align-items-center" style="position: absolute; top: 25px; right: 25px;">
+            <i class="fas fa-coins" style="font-size: 1.5rem; color: #FFD700;"></i>
+            <span class="ms-2 poppins-bold" style="font-size: 1.25rem;">
+                @{
+                    var currentUser = Model.Usuarios.FirstOrDefault(u => u.nombre_usuario == HttpContext.Session.GetString("nombreSesion"));               
+                    var Coins = currentUser?.monedas ?? 0; 
+                }
+                @Coins
+            </span>
+        </div>
+
+    <div class="container leaderboard-container">
+        <div class="row text-center mt-5">
+            <div class="col-md-4">
+                <div class="leaderboard-card ">
+                    <div class="level-badge">@Model.Usuarios[1].nivel</div>
+                    <img src="@Model.Usuarios[1].imagen" class="profile-img" alt="Profile">
+                    <div class="rank-badge silver">🥈</div>
+                      <h5 class="username">@Model.Usuarios[1].nombre_usuario</h5>
+                    <p class="points">Puntos: @Model.Usuarios[1].monedas</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="leaderboard-card first-place">
+                    <div class="level-badge">@Model.Usuarios[0].nivel</div>
+                    <img src="@Model.Usuarios[0].imagen" class="profile-img" alt="Profile">
+                    <div class="rank-badge gold">🥇</div>
+                      <h5 class="username">@Model.Usuarios[0].nombre_usuario</h5>
+                    <p class="points">Puntos: @Model.Usuarios[0].monedas</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="leaderboard-card">
+                    <div class="level-badge">@Model.Usuarios[2].nivel</div>
+                    <img src="@Model.Usuarios[2].imagen" class="profile-img" alt="Profile">
+                    <div class="rank-badge bronze">🥉</div>
+                    <h5 class="username">@Model.Usuarios[2].nombre_usuario</h5>
+                    <p class="points">Puntos: @Model.Usuarios[2].monedas</p>
+                </div>
+            </div>
+        </div>
+                <!-- Start Playing Section -->
+        <div class="row text-center mt-4">
+            <div class="col-12">
+                <a href="/Game/Start" class="btn btn-play btn-lg start-game-btn">Start Playing</a>
+            </div>
+        </div>
+
+        <div class="mt-4 leaderboard-card-tb">
+            <table class="table">
+                <thead class="thead">
+                    <tr>
+                        <th>Lugar</th>
+                        <th>Usuario</th>
+                        <th>Nivel</th>
+                        <th>Puntos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Usuarios.Count; i++)
+                    {
+
+                        <tr class="@(Model.Usuarios[i].nombre_usuario == currentUser?.nombre_usuario ? "highlight-current-user" : "")">
+                            <td>@(i + 1) @if (i == 0) { <span>🥇</span> } else if (i == 1) { <span>🥈</span> } else if (i == 2) { <span>🥉</span> }</td>
+                            <td>@Model.Usuarios[i].nombre_usuario</td>
+                            <td>@Model.Usuarios[i].nivel</td>
+                            <td>@Model.Usuarios[i].monedas</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>

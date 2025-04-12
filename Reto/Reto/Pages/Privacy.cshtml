@@ -1,8 +1,165 @@
 ﻿@page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Foro";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Reto</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Reto.styles.css" asp-append-version="true" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1>@ViewData["Foro"]</h1>
+    <div class="add-question-box">
+        <input type="checkbox" id="addQuestionToggle" class="add-question-toggle" hidden>
+        <label for="addQuestionToggle" class="add-question">+ Añadir pregunta</label>
+        <div class="add-question-section">
+            <div class="post">
+                <div class="comment-box">
+                    <form method="post" asp-page-handler="AgregarPregunta">
+                        <textarea name="textoPregunta" id="questionText" class="form-control" rows="4"
+                            placeholder="Escribe tu pregunta aquí..."></textarea>
+                        <button class="post-button">Publicar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach (Pregunta element in Model.preguntas.OrderByDescending(p => p.date))
+    {
+        <div class="post">
+            <div class="comment-box">
+                <div class="user-info">
+                    <div class="user-icon">👤</div>
+                    <div class="user-name">@element.nombre_usuario</div>
+                    @{
+                        DateTime currentDate = DateTime.Now;
+                        DateTime postDate = element.date;
+                        TimeSpan timeDifference = currentDate - postDate;
+                    }
+
+                    <div class="comment-time">
+                        @if (timeDifference.TotalMinutes < 60)
+                        {
+                            // Menos de 1 hora
+                            <text>hace @timeDifference.Minutes minutos</text>
+                        }
+                        else if (timeDifference.TotalDays < 1)
+                        {
+                            // Menos de 1 día
+                            <text>hace @timeDifference.Hours horas</text>
+                        }
+                        else if (timeDifference.TotalDays < 30)
+                        {
+                            // Menos de 30 días
+                            <text>hace @timeDifference.Days días</text>
+                        }
+                        else
+                        {
+                            // Más de 30 días
+                            <text>@postDate.ToString("dd/MM/yyyy")</text>
+                        }
+                </div>
+            </div>
+            <div class="comment-text">
+                @element.texto_pregunta
+            </div>
+            <form method="post" asp-page-handler="LikePregunta">
+                <input type="hidden" name="idPregunta" value="@element.id_pregunta" />
+                <button type="submit" class="heart-button">
+                    <span class="heart-button">
+                        @(Model._context.UsuarioDioLikePregunta(@HttpContext.Session.GetInt32("empleadoIdSesion") ?? 1, element.id_pregunta) ?
+                                                "❤️" : "♡") @element.likes
+                    </span>
+                </button>
+            </form>
+            <div style="border-top: 1px solid black;" class="comment-actions">
+                @foreach (Respuesta r_element in element.Respuestas)
+                    {
+                        <div class="comment-box-ans">
+                            <div class="user-info">
+                                <div class="user-icon-ans">👤</div>
+                                <div class="user-name-ans">@r_element.nombre_usuario</div>
+                                @{
+                                    DateTime currentDate2 = DateTime.Now;
+                                    DateTime postDate2 = r_element.date;
+                                    TimeSpan timeDifference2 = currentDate2 - postDate2;
+                                }
+
+                                <div class="comment-time">
+                                    @if (timeDifference.TotalMinutes < 60)
+                                    {
+                                        // Menos de 1 hora
+                                        <text>hace @timeDifference.Minutes minutos</text>
+                                    }
+                                    else if (timeDifference2.TotalDays < 1)
+                                    {
+                                        // Menos de 1 día
+                                        <text>hace @timeDifference2.Hours horas</text>
+                                    }
+                                    else if (timeDifference2.TotalDays < 30)
+                                    {
+                                        // Menos de 30 días
+                                        <text>hace @timeDifference2.Days días</text>
+                                    }
+                                    else
+                                    {
+                                        // Más de 30 días
+                                        <text>@postDate2.ToString("dd/MM/yyyy")</text>
+                                    }
+                        </div>
+                    </div>
+                    <div class="answer-text">
+                        @r_element.texto_respuesta
+                    </div>
+                    <div class="comment-actions">
+                        <form method="post" asp-page-handler="LikeRespuesta">
+                            <input type="hidden" name="idRespuesta" value="@r_element.id_respuesta" />
+                            <button type="submit" class="heart-button">
+                                <span class="heart-button">
+                                    @(Model._context.UsuarioDioLikeRespuesta(@HttpContext.Session.GetInt32("empleadoIdSesion") ?? 1, r_element.id_respuesta) ?
+                                                                        "❤️" : "♡") @r_element.likes
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                                }
+                    <input type="checkbox" id="addAnswerToggle_@element.id_pregunta" class="add-answer-toggle" hidden>
+                    <label for="addAnswerToggle_@element.id_pregunta" class="add-answer">+ Añadir comentario</label>
+
+                    <div class="add-answer-section">
+                        <div class="post">
+                            <div class="comment-box">
+                                <form method="post" asp-page-handler="AgregarRespuesta">
+                                    <textarea name="textoRespuesta" id="questionText_@element.id_pregunta"
+                                    class="form-control" rows="4"
+                                    placeholder="Escribe tu comentario aquí..."></textarea>
+                                    <input type="hidden" name="idPregunta" value="@element.id_pregunta" />
+                                    <button class="post-button_@element.id_pregunta post-button">Publicar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+
+</html>
