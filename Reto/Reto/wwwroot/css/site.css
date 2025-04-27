@@ -1423,3 +1423,44 @@ body {
 .btn:hover {
   opacity: 0.9;
 }
+
+.cta-section {
+  padding: 3rem 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-section .container {
+  padding: 0;
+  max-width: 100%;
+}
+
+.cta-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.cta-button {
+  background-color: #ffcc57;
+  color: #000000;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.cta-button:hover {
+  background-color: #f2bf47;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
