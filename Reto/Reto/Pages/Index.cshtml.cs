@@ -65,7 +65,7 @@ public class IndexModel : PageModel
                 HttpContext.Session.SetString("contraSesion", "SIN SESIÓN");
             }
             if (contraCorrecta && nombreCorrecto) {
-                Response.Redirect("Privacy");
+                Response.Redirect("Dashboard");
             }
         }
     }

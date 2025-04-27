@@ -30,7 +30,24 @@
                 <div class="stats">
                     <div class="stat">
                         <p class="stat-title">Lugar</p>
-                        <p class="stat-value">🥇 1</p>
+                        <p class="stat-value">
+                            @if (Model.LugarEnLeaderboard == 1)
+                            {
+                                <span>🥇 @Model.LugarEnLeaderboard</span>
+                            }
+                            else if (Model.LugarEnLeaderboard == 2)
+                            {
+                                <span>🥈 @Model.LugarEnLeaderboard</span>
+                            }
+                            else if (Model.LugarEnLeaderboard == 3)
+                            {
+                                <span>🥉 @Model.LugarEnLeaderboard</span>
+                            }
+                            else
+                            {
+                                <span>@Model.LugarEnLeaderboard</span>
+                            }
+                        </p>
                     </div>
                     <div class="stat">
                         <p class="stat-title">Nivel</p>

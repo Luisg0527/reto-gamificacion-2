@@ -153,22 +153,6 @@ namespace Reto.Model
             {
                 while (reader.Read())
                 {
-                    string rol = reader.IsDBNull(reader.GetOrdinal("rol"))
-                                    ? ""
-                                    : reader.GetString("rol");
-
-                    string quote = reader.IsDBNull(reader.GetOrdinal("quote"))
-                                    ? ""
-                                    : reader.GetString("quote");
-
-                    string ubicacion = reader.IsDBNull(reader.GetOrdinal("ubicacion"))
-                                    ? ""
-                                    : reader.GetString("ubicacion");
-
-                    string telefono = reader.IsDBNull(reader.GetOrdinal("telefono"))
-                                    ? ""
-                                    : reader.GetString("telefono");
-
                     leaderboard.Add(new Usuario(
                         reader.GetInt32("id_usuario"),
                         reader.GetString("nombre_usuario"),
@@ -178,11 +162,11 @@ namespace Reto.Model
                         reader.GetInt32("retos_completados"),
                         reader.GetString("correo"),
                         reader.GetInt32("id_empleado"),
+                        reader.GetString("rol"),
+                        reader.GetString("quote"),
                         reader.GetString("imagen"),
-                        rol,
-                        quote,
-                        ubicacion,
-                        telefono
+                        reader.GetString("ubicacion"),
+                        reader.GetString("telefono")
                     ));
                 }
             }
@@ -204,27 +188,7 @@ namespace Reto.Model
             {
                 if (reader.Read())
                 {
-                    string imagen = reader.IsDBNull(reader.GetOrdinal("imagen")) 
-                                    ? "" 
-                                    : reader.GetString("imagen");
-                                    
-                    string rol = reader.IsDBNull(reader.GetOrdinal("rol"))
-                                    ? ""
-                                    : reader.GetString("rol");
-
-                    string quote = reader.IsDBNull(reader.GetOrdinal("quote"))
-                                    ? ""
-                                    : reader.GetString("quote");
-
-                    string ubicacion = reader.IsDBNull(reader.GetOrdinal("ubicacion"))
-                                    ? ""
-                                    : reader.GetString("ubicacion");
-
-                    string telefono = reader.IsDBNull(reader.GetOrdinal("telefono"))
-                                    ? ""
-                                    : reader.GetString("telefono");
-                                    
-                    usuario = new Usuario(
+                     usuario = new Usuario(
                         reader.GetInt32("id_usuario"),
                         reader.GetString("nombre_usuario"),
                         reader.GetString("password"),
@@ -233,11 +197,11 @@ namespace Reto.Model
                         reader.GetInt32("retos_completados"),
                         reader.GetString("correo"),
                         reader.GetInt32("id_empleado"),
-                        rol,
-                        quote,
-                        imagen,
-                        ubicacion,
-                        telefono
+                        reader.GetString("rol"),
+                        reader.GetString("quote"),
+                        reader.GetString("imagen"),
+                        reader.GetString("ubicacion"),
+                        reader.GetString("telefono")
                     );
                 }
             }
