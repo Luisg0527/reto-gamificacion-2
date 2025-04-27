@@ -12,8 +12,7 @@ namespace Reto.Model
         public string ConnectionString { get; set; }
         public DataBaseContext()
         {
-            ConnectionString = "Server=addServer;Port=14683;Database=OxxoDB;Uid=avnadmin;password='ADDPASSWORD';";   }      
-          
+             ConnectionString = "Server=addServer;Port=14683;Database=OxxoDB;Uid=avnadmin;password='ADDPASSWORD';";   }    
         private MySqlConnection GetConnection()
         {
             return new MySqlConnection(ConnectionString);
