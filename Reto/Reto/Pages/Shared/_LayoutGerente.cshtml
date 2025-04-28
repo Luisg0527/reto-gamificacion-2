@@ -19,29 +19,21 @@
         <!-- Sidebar -->
         <div class="sidebar text-center">
             <div class="profile-section my-4">
-                <a class="nav-link" asp-area="" asp-page="/Usuario" style="text-decoration: none; color: inherit;">
-                    <div class="d-flex justify-content-center">
-                        <img src="~/images/ppdefault.png" alt="Default Profile Picture" class="rounded-circle bg-secondary" style="width: 150px; height: 150px;" />
-                    </div>
-                    <h3 class="mt-2 poppins-bold">
-                        @{
-                            var nombreSesion = Context.Session.GetString("nombreSesion") ?? "Usuario";
-                        }
+                <div class="d-flex justify-content-center">
+                    <img src="~/images/ppdefault.png" alt="Default Profile Picture" class="rounded-circle bg-secondary" style="width: 150px; height: 150px;" />
+                </div>
+                <h3 class="mt-2 poppins-bold">
+                    @{
+                        var nombreSesion = Context.Session.GetString("nombreSesion") ?? "Usuario";                      }
                         @nombreSesion
-                    </h3>
-                </a>
+                </h3>
             </div>
             <nav class="navbar navbar-light">
             <div class="navbar-collapse">
                 <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/Home">
-                    <i class="fas fa-home"></i> Hogar
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/DashBoard">
-                    <i class="fas fa-chart-line"></i> Reporte de Tienda
+                    <a class="nav-link" asp-area="" asp-page="/AdminDash">
+                    <i class="fas fa-chart-line"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
@@ -49,19 +41,9 @@
                     <i class="fas fa-chalkboard-teacher"></i> Leaderboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/Privacy">
-                    <i class="fas fa-comments"></i> Foro de Discusión
-                    </a>
-                </li>
                 </ul>
             </div>
             </nav>
-            <div class="mt-auto mb-4">
-                <a class="nav-link text-danger" asp-area="" asp-page="/Index">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-                </a>
-            </div>
         </div>
 
         <!-- Main Content -->

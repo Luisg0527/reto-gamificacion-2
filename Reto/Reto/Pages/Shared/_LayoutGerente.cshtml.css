@@ -1,0 +1,135 @@
+﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+
+a {
+  color: #0077cc;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+a:hover {
+  color: #0056b3;
+  transition: color 0.3s ease-in-out;
+}
+
+a:active {
+  color: #003d80;
+  transition: color 0.1s ease-in-out;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.container {
+  width: 100%;
+  padding-right: 50px;
+  padding-left: 50px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.main-content{
+  background-color:#F6F4F1;
+  min-height: 100vh;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #dee2e6;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.sidebar .navbar-brand {
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.sidebar .navbar-nav {
+  flex-direction: column;
+}
+.sidebar .nav-item {
+  margin-bottom: 0.5rem;
+}
+.sidebar .nav-link {
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+.sidebar .nav-link:hover {
+  background-color: #e9ecef;
+}
+.main-content {
+  margin-left: 250px; /* Adjust based on sidebar width */
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+  height: 82px;
+  margin-bottom: 50px;
+}
+
+.header input[type="date"] {
+  width: auto;
+}
+
+.puntuacion-section {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.puntuacion-section i {
+  color: #FFD700; /* Gold color for the coin icon */
+}
+
+.puntuacion-section span {
+  margin-left: 8px;
+  font-weight: bold;
+}

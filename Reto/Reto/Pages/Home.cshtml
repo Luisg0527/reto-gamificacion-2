@@ -1,0 +1,36 @@
+@page
+@model HomeModel
+@{
+    ViewData["Title"] = "Home";
+    ViewBag.HideHeader = true;
+    ViewBag.NoMargin = true;
+}
+<body>
+    <div class="d-flex poppins-regular">
+        <div class="main-content-home flex-grow-1 p-0">
+            <div class="yellowThingy d-flex flex-column align-items-end">
+                <div class="welcome-text-container">
+                    <div class="bienvenido-text">Bienvenido</div>
+                    <div class="jugador-name poppins-bold">@HttpContext.Session.GetString("nombreSesion")</div>
+                </div>
+            </div>
+            
+            <div class="home-page-content container-fluid">
+                <div class="home-row-1 row">
+                    <div class="first-column col-6 p-0">
+                        <div class="home-card ingresosHome text-center d-flex flex-column justify-content-center">
+                            Ingresos
+                            <br>
+                            @Model.myUser.monedas MXN
+                        </div>
+                        <div class="home-card leaderBoardHome"></div>
+                    </div>
+                    <div class="home-card col-6">imagen</div>
+                </div>
+                <div class="home-card row">
+                    <div class="col-12">Forum</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

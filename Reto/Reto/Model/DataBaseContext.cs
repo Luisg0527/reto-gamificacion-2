@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
+using System.Data;
 
 
 namespace Reto.Model
@@ -97,6 +98,28 @@ namespace Reto.Model
             return ContraExiste;
         }
 
+        public string getTipoEmpleado(string nomUsuario) {
+            string tipoEmpleado = "SIN PUESTO";
+
+            MySqlConnection conexion = GetConnection();
+            conexion.Open();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "SP_Web_getPuesto";
+            cmd.Connection = conexion;
+
+            cmd.Parameters.AddWithValue("@nomUsuario", nomUsuario);
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    tipoEmpleado = reader.GetString("puesto");
+                }
+            }
+            conexion.Close();
+            return tipoEmpleado;
+        }
+
         public void crearUsuario(int _empId, string _nombre, string _contra, string _correo)
         {
             MySqlConnection conexion = GetConnection();
@@ -139,6 +162,41 @@ namespace Reto.Model
             conexion.Close();
         }
 
+        //Obtener la informacion del usuario para la pagina de home
+        public Usuario GetUserByName(string nomUsuario) {
+            Usuario usuario = new Usuario();
+            MySqlConnection conexion = GetConnection();
+            conexion.Open();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "SP_Web_getUsuario";
+            cmd.Connection = conexion;
+
+            cmd.Parameters.AddWithValue("@nomUsuario", nomUsuario);
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    usuario.id_usuario = reader.GetInt32("id_usuario");
+                    usuario.nombre_usuario = reader.GetString("nombre_usuario");
+                    usuario.password = reader.GetString("password");
+                    usuario.monedas = reader.GetInt32("monedas");
+                    usuario.nivel = reader.GetInt32("nivel");
+                    usuario.retos_completados = reader.GetInt32("retos_completados");
+                    usuario.correo = reader.GetString("correo");
+                    usuario.id_empleado = reader.GetInt32("id_empleado");
+                    usuario.rol = reader.IsDBNull(reader.GetOrdinal("rol")) ? "" : reader.GetString("rol");
+                    usuario.quote = reader.IsDBNull(reader.GetOrdinal("quote")) ? "" : reader.GetString("quote");
+                    usuario.ubicacion = reader.IsDBNull(reader.GetOrdinal("ubicacion")) ? "" : reader.GetString("ubicacion");
+                    usuario.telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? "" : reader.GetString("telefono");
+                    usuario.imagen = reader.IsDBNull(reader.GetOrdinal("imagen")) ? "" : reader.GetString("imagen");
+                }
+            }
+            conexion.Close();
+
+            return usuario;
+        }
+
 
         public List<Usuario> GetLeaderboard()
     {
@@ -147,7 +205,7 @@ namespace Reto.Model
         using (MySqlConnection connection = GetConnection())
         {
             connection.Open();
-            string query = "SELECT * FROM Usuario ORDER BY nivel DESC";
+            string query = "SELECT * FROM Usuario WHERE rol = 'Asesor de Tienda' ORDER BY nivel DESC";
             using (MySqlCommand cmd = new MySqlCommand(query, connection))
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
