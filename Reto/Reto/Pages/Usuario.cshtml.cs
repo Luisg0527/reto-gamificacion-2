@@ -12,6 +12,9 @@ namespace Reto.Pages
         [BindProperty]
         public Usuario UsuarioActual { get; set; }
 
+        [BindProperty]
+        public int LugarEnLeaderboard { get; set; }
+
         // Esta propiedad controla el modo de edición (si se muestran los campos de editar)
         [BindProperty]
         public bool EditMode { get; set; }
@@ -26,6 +29,10 @@ namespace Reto.Pages
             // Obtenemos el nombre del usuario de la sesión; en este ejemplo se usa "jPerez" por defecto
             string nombreSesion = HttpContext.Session.GetString("nombreSesion") ?? "jPerez"; 
             UsuarioActual = _dbContext.GetUsuarioByNombre(nombreSesion);
+            
+            // Obtener el lugar en el leaderboard
+            var leaderboard = _dbContext.GetLeaderboard();
+            LugarEnLeaderboard = leaderboard.FindIndex(u => u.nombre_usuario == nombreSesion) + 1;
         }
 
         // Alterna el modo de edición

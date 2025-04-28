@@ -19,14 +19,17 @@
         <!-- Sidebar -->
         <div class="sidebar text-center">
             <div class="profile-section my-4">
-                <div class="d-flex justify-content-center">
-                    <img src="~/images/ppdefault.png" alt="Default Profile Picture" class="rounded-circle bg-secondary" style="width: 150px; height: 150px;" />
-                </div>
-                <h3 class="mt-2 poppins-bold">
-                    @{
-                        var nombreSesion = Context.Session.GetString("nombreSesion") ?? "Usuario";                      }
+                <a class="nav-link" asp-area="" asp-page="/Usuario" style="text-decoration: none; color: inherit;">
+                    <div class="d-flex justify-content-center">
+                        <img src="~/images/ppdefault.png" alt="Default Profile Picture" class="rounded-circle bg-secondary" style="width: 150px; height: 150px;" />
+                    </div>
+                    <h3 class="mt-2 poppins-bold">
+                        @{
+                            var nombreSesion = Context.Session.GetString("nombreSesion") ?? "Usuario";
+                        }
                         @nombreSesion
-                </h3>
+                    </h3>
+                </a>
             </div>
             <nav class="navbar navbar-light">
             <div class="navbar-collapse">
@@ -51,14 +54,14 @@
                     <i class="fas fa-comments"></i> Foro de Discusión
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/Usuario">
-                    <i class="fas fa-user"></i> Usuario
-                    </a>
-                </li>
                 </ul>
             </div>
             </nav>
+            <div class="mt-auto mb-4">
+                <a class="nav-link text-danger" asp-area="" asp-page="/Index">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                </a>
+            </div>
         </div>
 
         <!-- Main Content -->
