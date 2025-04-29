@@ -46,27 +46,29 @@
                         <h4 class="mb-3">Última Publicación en el Foro</h4>
                         @if (Model.UltimaPregunta != null)
                         {
-                            <div class="forum-post">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="post-author">
-                                        <i class="fas fa-user"></i> @Model.UltimaPregunta.nombre_usuario
+                            <a asp-page="/Privacy" class="forum-post-link" style="text-decoration: none; color: inherit;">
+                                <div class="forum-post">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="post-author">
+                                            <i class="fas fa-user"></i> @Model.UltimaPregunta.nombre_usuario
+                                        </div>
+                                        <div class="post-date">
+                                            <i class="far fa-clock"></i> @Model.UltimaPregunta.date.ToString("dd/MM/yyyy HH:mm")
+                                        </div>
                                     </div>
-                                    <div class="post-date">
-                                        <i class="far fa-clock"></i> @Model.UltimaPregunta.date.ToString("dd/MM/yyyy HH:mm")
+                                    <div class="post-content mt-3">
+                                        @Model.UltimaPregunta.texto_pregunta
+                                    </div>
+                                    <div class="post-actions mt-3">
+                                        <span class="me-3">
+                                            <i class="far fa-comment"></i> @Model.UltimaPregunta.Respuestas.Count respuestas
+                                        </span>
+                                        <span>
+                                            <i class="far fa-heart"></i> @Model.UltimaPregunta.likes likes
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="post-content mt-3">
-                                    @Model.UltimaPregunta.texto_pregunta
-                                </div>
-                                <div class="post-actions mt-3">
-                                    <span class="me-3">
-                                        <i class="far fa-comment"></i> @Model.UltimaPregunta.Respuestas.Count respuestas
-                                    </span>
-                                    <span>
-                                        <i class="far fa-heart"></i> @Model.UltimaPregunta.likes likes
-                                    </span>
-                                </div>
-                            </div>
+                            </a>
                         }
                         else
                         {
@@ -135,5 +137,15 @@
     .post-actions {
         color: #7f8c8d;
         font-size: 0.9rem;
+    }
+
+    .forum-post-link:hover .forum-post {
+        background: #f0f0f0;
+        transition: background-color 0.3s ease;
+    }
+
+    .forum-post-link {
+        display: block;
+        cursor: pointer;
     }
 </style>
