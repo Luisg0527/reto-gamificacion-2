@@ -19,18 +19,121 @@
                 <div class="home-row-1 row">
                     <div class="first-column col-6 p-0">
                         <div class="home-card ingresosHome text-center d-flex flex-column justify-content-center">
-                            Ingresos
-                            <br>
-                            @Model.myUser.monedas MXN
+                            <h4 class="mb-3">Ingresos del Día</h4>
+                            <div class="metric-value">$@Model.metricas.ingresos.ToString("N2") MXN</div>
+                            <div class="metric-details mt-2">
+                                <div>Órdenes: @Model.metricas.ordenes</div>
+                                <div>Visitas: @Model.metricas.visistas</div>
+                            </div>
                         </div>
-                        <div class="home-card leaderBoardHome"></div>
+                        <div class="home-card leaderBoardHome text-center d-flex flex-column justify-content-center">
+                            <h4 class="mb-3">Tu Posición</h4>
+                            <div class="position-badge">#@Model.LugarEnLeaderboard</div>
+                            <div class="mt-2">
+                                <i class="fas fa-trophy"></i> Nivel @Model.myUser.nivel
+                            </div>
+                            <div class="mt-2">
+                                <i class="fas fa-coins"></i> @Model.myUser.monedas puntos
+                            </div>
+                        </div>
                     </div>
-                    <div class="home-card col-6">imagen</div>
+                    <div class="home-card col-6">
+                        <!-- Looker Studio graph will go here -->
+                    </div>
                 </div>
-                <div class="home-card row">
-                    <div class="col-12">Forum</div>
+                <div class="home-card row forum-section">
+                    <div class="col-12">
+                        <h4 class="mb-3">Última Publicación en el Foro</h4>
+                        @if (Model.UltimaPregunta != null)
+                        {
+                            <div class="forum-post">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="post-author">
+                                        <i class="fas fa-user"></i> @Model.UltimaPregunta.nombre_usuario
+                                    </div>
+                                    <div class="post-date">
+                                        <i class="far fa-clock"></i> @Model.UltimaPregunta.date.ToString("dd/MM/yyyy HH:mm")
+                                    </div>
+                                </div>
+                                <div class="post-content mt-3">
+                                    @Model.UltimaPregunta.texto_pregunta
+                                </div>
+                                <div class="post-actions mt-3">
+                                    <span class="me-3">
+                                        <i class="far fa-comment"></i> @Model.UltimaPregunta.Respuestas.Count respuestas
+                                    </span>
+                                    <span>
+                                        <i class="far fa-heart"></i> @Model.UltimaPregunta.likes likes
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <p>No hay publicaciones recientes en el foro</p>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<style>
+    .home-card {
+        background: white;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .metric-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .metric-details {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+
+    .position-badge {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #e74c3c;
+    }
+
+    .forum-post {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .forum-section{
+        margin-top: 130px;
+    }
+
+    .post-author {
+        color: #2c3e50;
+        font-weight: 500;
+    }
+
+    .post-date {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+
+    .post-content {
+        color: #34495e;
+        line-height: 1.6;
+    }
+
+    .post-actions {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+</style>
