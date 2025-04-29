@@ -1602,3 +1602,68 @@ body, html {
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
+
+.home-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.metric-details {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.position-badge {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.forum-post {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.forum-section{
+  margin-top: 130px;
+}
+
+.post-author {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.post-date {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.post-content {
+  color: #34495e;
+  line-height: 1.6;
+}
+
+.post-actions {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.forum-post-link:hover .forum-post {
+  background: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.forum-post-link {
+  display: block;
+  cursor: pointer;
+}
