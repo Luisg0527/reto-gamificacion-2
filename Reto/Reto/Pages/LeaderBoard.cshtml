@@ -2,6 +2,9 @@
 @model LeaderboardModel
 @{
     ViewData["Title"] = "Leaderboard";
+    if(HttpContext.Session.GetString("puestoUsuario") == "Gerente") {
+        Layout = "_LayoutGerente";
+    }
 }
 <body>
         <!-- Puntuación -->
@@ -34,7 +37,7 @@
             <div class="col-md-4">
                 <div class="leaderboard-card ">
                     <div class="level-badge">@Model.Usuarios[1].nivel</div>
-                    <img src="@Model.Usuarios[1].imagen" class="profile-img" alt="Profile">
+                    <img src="@Model.Usuarios[1].imagen" class="profile-img" alt="@Model.Usuarios[0].imagen">
                     <div class="rank-badge silver">🥈</div>
                       <h5 class="username">@Model.Usuarios[1].nombre_usuario</h5>
                     <p class="points">Puntos: @Model.Usuarios[1].monedas</p>
@@ -43,7 +46,7 @@
             <div class="col-md-4">
                 <div class="leaderboard-card first-place">
                     <div class="level-badge">@Model.Usuarios[0].nivel</div>
-                    <img src="@Model.Usuarios[0].imagen" class="profile-img" alt="Profile">
+                    <img src="@Model.Usuarios[0].imagen" class="profile-img" alt="@Model.Usuarios[0].imagen">
                     <div class="rank-badge gold">🥇</div>
                       <h5 class="username">@Model.Usuarios[0].nombre_usuario</h5>
                     <p class="points">Puntos: @Model.Usuarios[0].monedas</p>
@@ -52,7 +55,7 @@
             <div class="col-md-4">
                 <div class="leaderboard-card">
                     <div class="level-badge">@Model.Usuarios[2].nivel</div>
-                    <img src="@Model.Usuarios[2].imagen" class="profile-img" alt="Profile">
+                    <img src="@Model.Usuarios[2].imagen" class="profile-img" alt="@Model.Usuarios[0].imagen">
                     <div class="rank-badge bronze">🥉</div>
                     <h5 class="username">@Model.Usuarios[2].nombre_usuario</h5>
                     <p class="points">Puntos: @Model.Usuarios[2].monedas</p>

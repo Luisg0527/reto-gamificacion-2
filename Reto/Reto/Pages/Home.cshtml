@@ -1,0 +1,84 @@
+@page
+@model HomeModel
+@{
+    ViewData["Title"] = "Home";
+    ViewBag.HideHeader = true;
+    ViewBag.NoMargin = true;
+}
+<body>
+    <div class="d-flex poppins-regular">
+        <div class="main-content-home flex-grow-1 p-0">
+            <div class="yellowThingy d-flex flex-column align-items-end">
+                <div class="welcome-text-container">
+                    <div class="bienvenido-text">Bienvenido</div>
+                    <div class="jugador-name poppins-bold">@HttpContext.Session.GetString("nombreSesion")</div>
+                </div>
+            </div>
+            
+            <div class="home-page-content container-fluid">
+                <div class="home-row-1 row">
+                    <div class="first-column col-6 p-0">
+                        <div class="home-card ingresosHome text-center d-flex flex-column justify-content-center">
+                            <h4 class="mb-3">Ingresos del Día</h4>
+                            <div class="metric-value">$@Model.metricas.ingresos.ToString("N2") MXN</div>
+                            <div class="metric-details mt-2">
+                                <div>Órdenes: @Model.metricas.ordenes</div>
+                                <div>Visitas: @Model.metricas.visistas</div>
+                            </div>
+                        </div>
+                        <div class="home-card leaderBoardHome text-center d-flex flex-column justify-content-center">
+                            <h4 class="mb-3">Tu Posición</h4>
+                            <div class="position-badge">#@Model.LugarEnLeaderboard</div>
+                            <div class="mt-2">
+                                <i class="fas fa-trophy"></i> Nivel @Model.myUser.nivel
+                            </div>
+                            <div class="mt-2">
+                                <i class="fas fa-coins"></i> @Model.myUser.monedas puntos
+                            </div>
+                        </div>
+                    </div>
+                    <div class="home-card col-6">
+                        <!-- Looker Studio graph will go here -->
+                    </div>
+                </div>
+                <div class="home-card row forum-section">
+                    <div class="col-12">
+                        <h4 class="mb-3">Última Publicación en el Foro</h4>
+                        @if (Model.UltimaPregunta != null)
+                        {
+                            <a asp-page="/Privacy" class="forum-post-link" style="text-decoration: none; color: inherit;">
+                                <div class="forum-post">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="post-author">
+                                            <i class="fas fa-user"></i> @Model.UltimaPregunta.nombre_usuario
+                                        </div>
+                                        <div class="post-date">
+                                            <i class="far fa-clock"></i> @Model.UltimaPregunta.date.ToString("dd/MM/yyyy HH:mm")
+                                        </div>
+                                    </div>
+                                    <div class="post-content mt-3">
+                                        @Model.UltimaPregunta.texto_pregunta
+                                    </div>
+                                    <div class="post-actions mt-3">
+                                        <span class="me-3">
+                                            <i class="far fa-comment"></i> @Model.UltimaPregunta.Respuestas.Count respuestas
+                                        </span>
+                                        <span>
+                                            <i class="far fa-heart"></i> @Model.UltimaPregunta.likes likes
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <p>No hay publicaciones recientes en el foro</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -707,6 +707,7 @@ textarea.form-control:focus {
 .heart.liked {
   color: red;
 }
+
 html {
   font-size: 14px;
 }
@@ -717,7 +718,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -727,14 +732,18 @@ html {
 }
 
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
   text-align: start;
 }
+
+/* Inicio de Sesion y olvidar contraseña */
 
 .logo {
   width: 201px;
@@ -745,6 +754,7 @@ html {
   text-decoration: none;
   color: #383838;
 }
+
 .forgotPassword a:hover {
   text-decoration: underline;
 }
@@ -754,24 +764,27 @@ html {
   height: 510px;
 }
 
-.ctaIS, .ctaRC {
+.ctaIS,
+.ctaRC {
   background-color: #ffcc57;
   color: #000000;
   border-color: #ffcc57;
   width: 200px;
 }
 
-.ctaIS:hover, .ctaRC:hover {
-  background-color: #f2bf47!important;
-  border-color: #f2bf47!important;
+.ctaIS:hover,
+.ctaRC:hover {
+  background-color: #f2bf47 !important;
+  border-color: #f2bf47 !important;
   color: #000000;
 }
 
-.ctaIS:focus, .ctaRC:focus {
+.ctaIS:focus,
+.ctaRC:focus {
   background-color: #f2bf47 !important;
   border-color: #f2bf47 !important;
   color: #000000 !important;
-  outline-color:#ffe45cd4 !important;
+  outline-color: #ffe45cd4 !important;
   box-shadow: 0 0 0 0.25rem #ffe45cd4 !important;
 }
 
@@ -783,8 +796,8 @@ html {
 }
 
 .ctaCC:hover {
-  background-color: #2a2a2a!important;
-  border-color: #2a2a2a!important;
+  background-color: #2a2a2a !important;
+  border-color: #2a2a2a !important;
   color: #ffffff;
 }
 
@@ -792,9 +805,22 @@ html {
   background-color: #2a2a2a !important;
   border-color: #2a2a2a !important;
   color: #2a2a2a !important;
-  outline-color:#2a2a2a !important;
+  outline-color: #2a2a2a !important;
   box-shadow: 0 0 0 0.25rem #383838a2 !important;
   color: #ffffff !important;
+}
+
+#ojoContraseña {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 5%;
+  top: 17%;
+  cursor: pointer;
+}
+
+.passwordContainer {
+  position: relative;
 }
 
 /* ---- Pagina Crear Cuenta ---- */
@@ -807,8 +833,8 @@ html {
 }
 
 .crearCuenta-ctaCC:hover {
-  background-color: #f2bf47!important;
-  border-color: #f2bf47!important;
+  background-color: #f2bf47 !important;
+  border-color: #f2bf47 !important;
   color: #000000;
 }
 
@@ -816,7 +842,7 @@ html {
   background-color: #f2bf47 !important;
   border-color: #f2bf47 !important;
   color: #000000 !important;
-  outline-color:#ffe45cd4 !important;
+  outline-color: #ffe45cd4 !important;
   box-shadow: 0 0 0 0.25rem #ffe45cd4 !important;
 }
 
@@ -828,8 +854,8 @@ html {
 }
 
 .crearCuenta-ctaIS:hover {
-  background-color: #2a2a2a!important;
-  border-color: #2a2a2a!important;
+  background-color: #2a2a2a !important;
+  border-color: #2a2a2a !important;
   color: #ffffff;
 }
 
@@ -837,14 +863,14 @@ html {
   background-color: #2a2a2a !important;
   border-color: #2a2a2a !important;
   color: #2a2a2a !important;
-  outline-color:#2a2a2a !important;
+  outline-color: #2a2a2a !important;
   box-shadow: 0 0 0 0.25rem #383838a2 !important;
   color: #ffffff !important;
 }
 
 .formField:focus {
   border-color: #f2bf47 !important;
-  outline:none !important;
+  outline: none !important;
   box-shadow: none !important;
 }
 
@@ -880,6 +906,7 @@ input[type="number"]::-webkit-inner-spin-button {
 body {
   background-color: #f8f8f8;
 }
+
 .sidebar {
   width: 250px;
   height: 100vh;
@@ -893,6 +920,7 @@ body {
   border-radius: 14px;
   padding: 20px;
 }
+
 .leaderboard-card {
   background: linear-gradient(180deg, white 0%, rgba(254.88, 254.88, 254.88, 0) 100%);
   border-radius: 14px;
@@ -907,28 +935,30 @@ body {
   background: transparent;
   border-radius: 14px;
   margin: 20px;
-  max-height: 400px; 
+  max-height: 400px;
   overflow-y: auto;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   margin-top: 40px;
 }
 
-.leaderboard-card-tb table{
-  width: 100%; 
-  border-collapse: collapse; 
+.leaderboard-card-tb table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .leaderboard-card-tb table thead {
   position: sticky;
-  top: 0px; 
-  background-color: #fff; 
-  z-index: 1; 
+  top: 0px;
+  background-color: #fff;
+  z-index: 1;
 }
+
 .profile-img {
   width: 150px;
   height: 150px;
   border-radius: 20px;
 }
+
 .rank-badge {
   width: 70px;
   height: 70px;
@@ -942,15 +972,15 @@ body {
   position: relative !important;
 }
 
-.bronze{
+.bronze {
   background-color: transparent;
 }
 
-.gold{
+.gold {
   background-color: transparent;
 }
 
-.silver{
+.silver {
   background-color: transparent;
 }
 
@@ -965,7 +995,8 @@ td {
 }
 
 tr {
-  margin: 10px;}
+  margin: 10px;
+}
 
 .level-badge {
   width: 40px;
@@ -1005,15 +1036,15 @@ tr {
 }
 
 .btn-play:hover {
-  background-color: #f2bf47!important;
-  border-color: #f2bf47!important;
+  background-color: #f2bf47 !important;
+  border-color: #f2bf47 !important;
   color: #000000;
 
 }
 
 .highlight-current-user {
-  background-color: #ffcc57 !important; 
-  font-weight: bold; 
+  background-color: #ffcc57 !important;
+  font-weight: bold;
 }
 
 body {
@@ -1242,6 +1273,7 @@ body {
   border-color: #f2bf47;
   transform: translateY(-1px);
 }
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1252,7 +1284,7 @@ body {
   background: white;
   border-radius: 10px;
   padding: 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .user-header {
@@ -1280,7 +1312,8 @@ body {
   color: #333;
 }
 
-.position, .location {
+.position,
+.location {
   margin: 5px 0;
   color: #666;
 }
@@ -1289,7 +1322,8 @@ body {
   text-align: right;
 }
 
-.level-number, .coins {
+.level-number,
+.coins {
   display: block;
   font-size: 1.2em;
   color: #333;
@@ -1368,7 +1402,7 @@ body {
   border-radius: 10px;
   padding: 30px;
   margin-top: 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .edit-form {
@@ -1420,8 +1454,131 @@ body {
   color: white;
 }
 
+.text-title{
+  font-weight: bold;
+  color: #ffcc56;
+}
+
 .btn:hover {
   opacity: 0.9;
+}
+
+/* --- Home Page --- */
+
+/* Quitar margenes y padings del body y html */
+body, html {
+  margin: 0;
+  padding: 0;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  overflow-x: hidden;
+}
+
+/* quitar margenes y padding del contenido principal de la pagina */
+.main-content-home {
+  margin: 0 !important;
+  overflow-x: hidden;
+  margin-top: 0 !important;
+}
+
+/* bloque amarillo */
+.yellowThingy {
+  background-color: #ffd970;
+  min-height: 230px;
+  width: 100%;
+  margin: 0 !important;
+  position: relative;
+  margin-top: 0 !important;
+  justify-content: center;
+  top: 0;
+}
+
+/* padding para el texto de bienvenida */
+.welcome-text-container {
+  padding-right: 80px;
+}
+
+/* estilos para el texto de bienvenida */
+.bienvenido-text, .jugador-name {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: right;
+}
+
+.jugador-name {
+  font-size: 3.5rem;
+  margin-top: -16px;
+}
+
+.container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  max-width: 100% !important;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.home-page-content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 20px;
+}
+.home-page-content > .row {
+  gap: 20px; /* Para el espaciado horizontal entre columnas */
+}
+.col-6 {
+  width: 49.1%;
+}
+
+.home-row-1 {
+  height: 300px;
+}
+
+.home-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.first-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.first-column div {
+  flex-grow: 2;
+}
+
+.ingresosHome {
+  margin-bottom: 10px;
+}
+.leaderBoardHome {
+  margin-top: 10px;
+}
+
+/* --- Admin Dashboard --- */
+
+.dash-page-content {
+  background-color:#F6F4F1;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.dash-placeholder {
+  width: 624px;
+  height: 474px;
+  padding: 24px;
+  border-radius: 12px;
+  background-color: #fff;
+  align-self: center;
 }
 
 .cta-section {
@@ -1463,4 +1620,104 @@ body {
   background-color: #f2bf47;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+#unity-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#videojuegos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.videojuego-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#licencias-container {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#licencias-container ul {
+    margin-bottom: 20px;
+}
+
+.home-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.metric-details {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.position-badge {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.forum-post {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.forum-section{
+  margin-top: 130px;
+}
+
+.post-author {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.post-date {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.post-content {
+  color: #34495e;
+  line-height: 1.6;
+}
+
+.post-actions {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.forum-post-link:hover .forum-post {
+  background: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.forum-post-link {
+  display: block;
+  cursor: pointer;
 }

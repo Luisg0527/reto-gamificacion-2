@@ -7,6 +7,7 @@ namespace Reto.Pages;
 
 public class IndexModel : PageModel
 {
+    // Nombre y contraseña con sus errores de mensaje en caso de que esten vacios
     [BindProperty]
     [Required(ErrorMessage = "Se requiere un nombre de usuario")]
     public string? nombre {get; set;}
@@ -14,12 +15,16 @@ public class IndexModel : PageModel
     [BindProperty]
     [Required(ErrorMessage = "Se requiere contraseña")]
     public string? contraseña {get; set;}
+
+    // Conexion a base de datos
     private readonly DataBaseContext _context;
 
+    // Mensajes en caso de que la contraseña o usuario sean incorrectos
     [BindProperty]
     public string? messageNombre {get; set;}
     [BindProperty]
     public string? messageContra {get; set;}
+
 
     public IndexModel(DataBaseContext context)
     {
@@ -58,14 +63,22 @@ public class IndexModel : PageModel
                     contraCorrecta = true;
                 }
                 else {
-                    messageContra = "Contrasena incorrecta";
+                    messageContra = "Contraseña incorrecta";
                 }
             }
             else {
                 HttpContext.Session.SetString("contraSesion", "SIN SESIÓN");
             }
+
             if (contraCorrecta && nombreCorrecto) {
-                Response.Redirect("Dashboard");
+                HttpContext.Session.SetString("puestoUsuario", _context.getTipoEmpleado(nombre));
+
+                if(HttpContext.Session.GetString("puestoUsuario") == "Gerente") {
+                    Response.Redirect("AdminDash");
+                }
+                else {
+                    Response.Redirect("Home");
+                }
             }
         }
     }

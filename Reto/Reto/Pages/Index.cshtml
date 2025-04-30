@@ -1,14 +1,14 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Sing Up";
     Layout = "";
 }
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - Reto</title>
         <script type="importmap"></script>
@@ -31,16 +31,21 @@
                             <label for="exampleFormControlInput1" class="form-label">Nombre de usuario</label>
                             <input asp-for="nombre" type="text" class="form-control formField" id="exampleFormControlInput1" placeholder="usuario123">
                             <span class="text-danger" asp-validation-for="nombre" class="text-danger"></span>
+
                             @if(Model.messageNombre != null){
                                 <span class="text-danger" asp-validation-for="nombre" class="text-danger">@Model.messageNombre</span>
                             }
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput2" class="form-label">Contraseña</label>
-                            <input asp-for="contraseña"type="text" class="form-control formField" id="exampleFormControlInput2" placeholder="Contraseña">
+                            <div class="passwordContainer">
+                                <input asp-for="contraseña" type="password" class="form-control formField" id="exampleFormControlInput2" placeholder="Contraseña">
+                                <img src="/images/passEye.png" alt="ojo" onclick="MostrarContrasena()" id="ojoContraseña">
+                            </div>
                             <span class="text-danger" asp-validation-for="contraseña" class="text-danger"></span>
+
                             @if(Model.messageContra != null){
-                                <span class="text-danger" asp-validation-for="contraseña" class="text-danger">@Model.messageContra</span>
+                                <span class="text-danger" asp-validation-for="contraseña" class="text-danger">@Html.Raw(Model.messageContra)</span>
                             }
                         </div>
                         <div class="forgotPassword mb-4">
@@ -55,6 +60,17 @@
                 </form>
             </div>
         </div>
+        <script>
+            function MostrarContrasena() {
+                if (document.getElementById("exampleFormControlInput2").type === "password") {
+                document.getElementById("exampleFormControlInput2").type = "text";
+                document.getElementById("ojoContraseña").src = "/images/crossedPassEye.png";
+                } else {
+                    document.getElementById("exampleFormControlInput2").type = "password";
+                    document.getElementById("ojoContraseña").src = "/images/passEye.png";
+                }
+            }
+        </script>
     </body>
 </html>
 

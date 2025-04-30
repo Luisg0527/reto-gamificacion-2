@@ -1,6 +1,7 @@
 
 using Reto.Model; //carpeta que contiene la clase DataBaseContext
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.StaticFiles;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +14,9 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
- options.IdleTimeout = TimeSpan.FromHours(5);
- options.Cookie.HttpOnly = true;
- options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromHours(5);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 // Base de datos
@@ -38,6 +39,14 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseSession();
+
+var provider = new FileExtensionContentTypeProvider();
+provider.Mappings[".data"] = "application/octet-stream";
+provider.Mappings[".wasm"] = "application/wasm";
+app.UseStaticFiles(new StaticFileOptions()
+{
+    ContentTypeProvider = provider,
+});
 
 app.MapStaticAssets();
 app.MapRazorPages()

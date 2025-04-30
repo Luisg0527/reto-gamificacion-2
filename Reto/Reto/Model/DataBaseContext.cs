@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
+using System.Data;
 
 
 namespace Reto.Model
@@ -97,6 +98,29 @@ namespace Reto.Model
             return ContraExiste;
         }
 
+        public string getTipoEmpleado(string nomUsuario)
+        {
+            string tipoEmpleado = "SIN PUESTO";
+
+            MySqlConnection conexion = GetConnection();
+            conexion.Open();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "SP_Web_getPuesto";
+            cmd.Connection = conexion;
+
+            cmd.Parameters.AddWithValue("@nomUsuario", nomUsuario);
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    tipoEmpleado = reader.GetString("puesto");
+                }
+            }
+            conexion.Close();
+            return tipoEmpleado;
+        }
+
         public void crearUsuario(int _empId, string _nombre, string _contra, string _correo)
         {
             MySqlConnection conexion = GetConnection();
@@ -139,96 +163,135 @@ namespace Reto.Model
             conexion.Close();
         }
 
-
-        public List<Usuario> GetLeaderboard()
-    {
-        List<Usuario> leaderboard = new List<Usuario>();
-
-        using (MySqlConnection connection = GetConnection())
+        //Obtener la informacion del usuario para la pagina de home
+        public Usuario GetUserByName(string nomUsuario)
         {
-            connection.Open();
-            string query = "SELECT * FROM Usuario ORDER BY nivel DESC";
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    leaderboard.Add(new Usuario(
-                        reader.GetInt32("id_usuario"),
-                        reader.GetString("nombre_usuario"),
-                        reader.GetString("password"),
-                        reader.GetInt32("monedas"),
-                        reader.GetInt32("nivel"),
-                        reader.GetInt32("retos_completados"),
-                        reader.GetString("correo"),
-                        reader.GetInt32("id_empleado"),
-                        reader.GetString("rol"),
-                        reader.GetString("quote"),
-                        reader.GetString("imagen"),
-                        reader.GetString("ubicacion"),
-                        reader.GetString("telefono")
-                    ));
-                }
-            }
-        }
+            Usuario usuario = new Usuario();
+            MySqlConnection conexion = GetConnection();
+            conexion.Open();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "SP_Web_getUsuario";
+            cmd.Connection = conexion;
 
-        return leaderboard;
-    }
-    public Usuario GetUsuarioByNombre(string nombre)
-{
-    Usuario usuario = null;
-    using (MySqlConnection connection = GetConnection())
-    {
-        connection.Open();
-        string query = "SELECT * FROM Usuario WHERE nombre_usuario = @nombre";
-        using (MySqlCommand cmd = new MySqlCommand(query, connection))
-        {
-            cmd.Parameters.AddWithValue("@nombre", nombre);
+            cmd.Parameters.AddWithValue("@nomUsuario", nomUsuario);
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.Read())
                 {
-                     usuario = new Usuario(
-                        reader.GetInt32("id_usuario"),
-                        reader.GetString("nombre_usuario"),
-                        reader.GetString("password"),
-                        reader.GetInt32("monedas"),
-                        reader.GetInt32("nivel"),
-                        reader.GetInt32("retos_completados"),
-                        reader.GetString("correo"),
-                        reader.GetInt32("id_empleado"),
-                        reader.GetString("rol"),
-                        reader.GetString("quote"),
-                        reader.GetString("imagen"),
-                        reader.GetString("ubicacion"),
-                        reader.GetString("telefono")
-                    );
+                    usuario.id_usuario = reader.GetInt32("id_usuario");
+                    usuario.nombre_usuario = reader.GetString("nombre_usuario");
+                    usuario.password = reader.GetString("password");
+                    usuario.monedas = reader.GetInt32("monedas");
+                    usuario.nivel = reader.GetInt32("nivel");
+                    usuario.retos_completados = reader.GetInt32("retos_completados");
+                    usuario.correo = reader.GetString("correo");
+                    usuario.id_empleado = reader.GetInt32("id_empleado");
+                    usuario.rol = reader.IsDBNull(reader.GetOrdinal("rol")) ? "" : reader.GetString("rol");
+                    usuario.quote = reader.IsDBNull(reader.GetOrdinal("quote")) ? "" : reader.GetString("quote");
+                    usuario.ubicacion = reader.IsDBNull(reader.GetOrdinal("ubicacion")) ? "" : reader.GetString("ubicacion");
+                    usuario.telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? "" : reader.GetString("telefono");
+                    usuario.imagen = reader.IsDBNull(reader.GetOrdinal("imagen")) ? "" : reader.GetString("imagen");
+                }
+            }
+            conexion.Close();
+
+            return usuario;
+        }
+
+
+        public List<Usuario> GetLeaderboard()
+        {
+            List<Usuario> leaderboard = new List<Usuario>();
+
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM Usuario WHERE rol = 'Asesor de Tienda' ORDER BY nivel DESC";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        leaderboard.Add(new Usuario(
+                            reader.GetInt32("id_usuario"),
+                            reader.GetString("nombre_usuario"),
+                            reader.GetString("password"),
+                            reader.GetInt32("monedas"),
+                            reader.GetInt32("nivel"),
+                            reader.GetInt32("retos_completados"),
+                            reader.GetString("correo"),
+                            reader.GetInt32("id_empleado"),
+                            reader.GetString("rol"),
+                            reader.GetString("quote"),
+                            reader.GetString("imagen"),
+                            reader.GetString("ubicacion"),
+                            reader.GetString("telefono")
+                        ));
+                    }
+                }
+            }
+
+            return leaderboard;
+        }
+
+        public Usuario GetUsuarioByNombre(string nombre)
+        {
+            Usuario usuario = null;
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT * FROM Usuario WHERE nombre_usuario = @nombre";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            usuario = new Usuario(
+                               reader.GetInt32("id_usuario"),
+                               reader.GetString("nombre_usuario"),
+                               reader.GetString("password"),
+                               reader.GetInt32("monedas"),
+                               reader.GetInt32("nivel"),
+                               reader.GetInt32("retos_completados"),
+                               reader.GetString("correo"),
+                               reader.GetInt32("id_empleado"),
+                               reader.GetString("rol"),
+                               reader.GetString("quote"),
+                               reader.GetString("imagen"),
+                               reader.GetString("ubicacion"),
+                               reader.GetString("telefono")
+                           );
+                        }
+                    }
+                }
+            }
+            return usuario;
+        }
+
+        public void ActualizarUsuario(Usuario usuario)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string query = "UPDATE Usuario SET telefono = @telefono, correo = @correo, ubicacion = @ubicacion, quote = @quote WHERE id_usuario = @id_usuario";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@telefono", string.IsNullOrEmpty(usuario.telefono) ? DBNull.Value : (object)usuario.telefono);
+                    cmd.Parameters.AddWithValue("@correo", string.IsNullOrEmpty(usuario.correo) ? DBNull.Value : (object)usuario.correo);
+                    cmd.Parameters.AddWithValue("@ubicacion", string.IsNullOrEmpty(usuario.ubicacion) ? DBNull.Value : (object)usuario.ubicacion);
+                    cmd.Parameters.AddWithValue("@quote", string.IsNullOrEmpty(usuario.quote) ? DBNull.Value : (object)usuario.quote);
+                    cmd.Parameters.AddWithValue("@id_usuario", usuario.id_usuario);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
-    }
-    return usuario;
-}
-
-public void ActualizarUsuario(Usuario usuario)
-{
-    using (MySqlConnection connection = GetConnection())
-    {
-        connection.Open();
-        string query = "UPDATE Usuario SET telefono = @telefono, correo = @correo, ubicacion = @ubicacion, quote = @quote WHERE id_usuario = @id_usuario";
-        
-        using (MySqlCommand cmd = new MySqlCommand(query, connection))
-        {
-            cmd.Parameters.AddWithValue("@telefono", string.IsNullOrEmpty(usuario.telefono) ? DBNull.Value : (object)usuario.telefono);
-            cmd.Parameters.AddWithValue("@correo", string.IsNullOrEmpty(usuario.correo) ? DBNull.Value : (object)usuario.correo);
-            cmd.Parameters.AddWithValue("@ubicacion", string.IsNullOrEmpty(usuario.ubicacion) ? DBNull.Value : (object)usuario.ubicacion);
-            cmd.Parameters.AddWithValue("@quote", string.IsNullOrEmpty(usuario.quote) ? DBNull.Value : (object)usuario.quote);
-            cmd.Parameters.AddWithValue("@id_usuario", usuario.id_usuario);
-
-            cmd.ExecuteNonQuery();
-        }
-    }
-}
 
         public List<Pregunta> obtenerPregunta()
         {
@@ -569,5 +632,170 @@ public void ActualizarUsuario(Usuario usuario)
 
             }
         }
+
+        //Obtener videojuego
+        public List<Videojuego> obtenerVideojuego()
+        {
+            Videojuego vj;
+            List<Videojuego> ListaVideojuegos = new List<Videojuego>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string queryVideojuegos = @"SELECT * FROM videojuegos;";
+
+
+                using (MySqlCommand cmd = new MySqlCommand(queryVideojuegos, connection))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            vj = new Videojuego();
+                            vj.Id = reader.GetInt32("Id");
+                            vj.Nombre = reader.GetString("Nombre");
+                            vj.Descripcion = reader.GetString("Descripcion");
+                            vj.Historia = reader.GetString("Historia");
+                            ListaVideojuegos.Add(vj);
+                        }
+                    }
+                }
+            }
+            return ListaVideojuegos;
+        }
+
+        //Obtener Controles
+        public List<Controles> obtenerControles()
+        {
+
+            Controles ctrl;
+            List<Controles> ListaControles = new List<Controles>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string queryControles = @"SELECT * FROM controles;";
+
+
+                using (MySqlCommand cmd = new MySqlCommand(queryControles, connection))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            ctrl = new Controles();
+                            ctrl.Id = reader.GetInt32("Id");
+                            ctrl.VideojuegoId = reader.GetInt32("videojuego_id");
+                            ctrl.Accion = reader.GetString("accion");
+                            ctrl.Tecla = reader.GetString("tecla");
+                            ListaControles.Add(ctrl);
+                        }
+                    }
+                }
+            }
+            return ListaControles;
+        }
+
+        //Obtener Creditos
+        public List<Creditos> obtenerCreditos()
+        {
+            Creditos crd;
+            List<Creditos> ListaCreditos = new List<Creditos>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string queryCreditos = @"SELECT * FROM creditos;";
+
+
+                using (MySqlCommand cmd = new MySqlCommand(queryCreditos, connection))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            crd = new Creditos();
+                            crd.Id = reader.GetInt32("Id");
+                            crd.VideojuegoId = reader.GetInt32("videojuego_id");
+                            crd.NombrePersona = reader.GetString("nombre_persona");
+                            crd.Rol = reader.GetString("rol");
+                            ListaCreditos.Add(crd);
+                        }
+                    }
+                }
+            }
+            return ListaCreditos;
+        }
+
+        //Obtener Licencias
+        public List<Licencias> obtenerLicencias()
+        {
+
+            Licencias lcn;
+            List<Licencias> ListaLicencias = new List<Licencias>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string queryLicencias = @"SELECT * FROM licencias;";
+
+
+                using (MySqlCommand cmd = new MySqlCommand(queryLicencias, connection))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            lcn = new Licencias();
+                            lcn.Id = reader.GetInt32("Id");
+                            lcn.NombreRecurso = reader.GetString("nombre_recurso");
+                            lcn.Tipo = reader.GetString("Tipo");
+                            lcn.FuenteUrl = reader.GetString("fuente_url");
+                            lcn.Atribucion = reader.GetString("atribucion");
+                            ListaLicencias.Add(lcn);
+                        }
+                    }
+                }
+            }
+            return ListaLicencias;
+        }
+
+        //Obtener Objetivo
+        public List<Objetivo> obtenerObjetivo()
+        {
+
+            Objetivo obj;
+            List<Objetivo> ListaObjetivo = new List<Objetivo>();
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string queryObjetivo = @"SELECT * FROM objetivos;";
+
+
+                using (MySqlCommand cmd = new MySqlCommand(queryObjetivo, connection))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+
+                        while (reader.Read())
+                        {
+                            obj = new Objetivo();
+                            obj.Id = reader.GetInt32("Id");
+                            obj.VideojuegoId = reader.GetInt32("videojuego_id");
+                            obj.Tipo = reader.GetString("tipo");
+                            obj.Descripcion = reader.GetString("Descripcion");
+                            ListaObjetivo.Add(obj);
+                        }
+                    }
+                }
+            }
+            return ListaObjetivo;
+        }
+
     }
 }
