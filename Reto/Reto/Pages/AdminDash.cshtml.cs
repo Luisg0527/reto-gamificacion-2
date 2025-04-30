@@ -11,10 +11,10 @@ public class AdminDashModel : PageModel
 
     public void OnGet()
     {
-        // Get empleadoId from session
+        // Obtener el empleadoId
         var empleadoId = HttpContext.Session.GetInt32("empleadoIdSesion") ?? -1;
         
-        // Construct Looker Studio URL with correct format
+        // Construir el link de looker studio ya con los parametros
         var baseUrl = "https://lookerstudio.google.com/embed/reporting/0a97c541-2fe6-4c62-b4d2-a6bc38914589/page/jWbIF";
         var paramsJson = $"{{\"idgerente\":{empleadoId}}}";
         var encodedParams = HttpUtility.UrlEncode(paramsJson);
