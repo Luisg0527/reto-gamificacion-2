@@ -2,6 +2,9 @@
 @model Reto.Pages.UsuarioModel
 @{
     ViewData["Title"] = "Usuario";
+    if(HttpContext.Session.GetString("puestoUsuario") == "Gerente") {
+        Layout = "_LayoutGerente";
+    }
 }
 
 <div class="container">

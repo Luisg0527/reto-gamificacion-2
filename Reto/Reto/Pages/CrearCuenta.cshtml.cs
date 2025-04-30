@@ -74,7 +74,7 @@ public class CrearCuentaModel : PageModel
             if (empId && nom && corr && cont) {
                 _context.crearUsuario((int)empleadoId, nombre, contraseña, correo);
             }
-            Response.Redirect("Privacy");
+            Response.Redirect("Index");
         }
     }
 }

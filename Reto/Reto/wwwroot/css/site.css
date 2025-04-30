@@ -1573,12 +1573,14 @@ body, html {
 }
 
 .dash-placeholder {
-  width: 624px;
-  height: 474px;
+  width: 100%;
+  max-width: 1100px;
+  height: 490px;
   padding: 24px;
   border-radius: 12px;
   background-color: #fff;
-  align-self: center;
+  margin: 0 40px 0px 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .cta-section {
