@@ -1622,41 +1622,6 @@ body, html {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-#unity-container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-#videojuegos-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.videojuego-box {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-#licencias-container {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-#licencias-container ul {
-    margin-bottom: 20px;
-}
-
 .home-card {
   background: white;
   border-radius: 14px;
