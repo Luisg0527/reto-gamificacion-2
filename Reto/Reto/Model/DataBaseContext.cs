@@ -197,65 +197,6 @@ namespace Reto.Model
             return usuario;
         }
 
-
-        public List<Usuario> GetLeaderboard()
-    {
-        List<Usuario> leaderboard = new List<Usuario>();
-
-        using (MySqlConnection connection = GetConnection())
-        {
-            connection.Open();
-            string query = "SELECT * FROM Usuario WHERE rol = 'Asesor de Tienda' ORDER BY nivel DESC";
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    leaderboard.Add(new Usuario(
-                        reader.GetInt32("id_usuario"),
-                        reader.GetString("nombre_usuario"),
-                        reader.GetString("password"),
-                        reader.GetInt32("monedas"),
-                        reader.GetInt32("nivel"),
-                        reader.GetInt32("retos_completados"),
-                        reader.GetString("correo"),
-                        reader.GetInt32("id_empleado"),
-                        reader.GetString("rol"),
-                        reader.GetString("quote"),
-                        reader.GetString("imagen"),
-                        reader.GetString("ubicacion"),
-                        reader.GetString("telefono")
-                    ));
-                }
-            }
-        }
-
-            cmd.Parameters.AddWithValue("@nomUsuario", nomUsuario);
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    usuario.id_usuario = reader.GetInt32("id_usuario");
-                    usuario.nombre_usuario = reader.GetString("nombre_usuario");
-                    usuario.password = reader.GetString("password");
-                    usuario.monedas = reader.GetInt32("monedas");
-                    usuario.nivel = reader.GetInt32("nivel");
-                    usuario.retos_completados = reader.GetInt32("retos_completados");
-                    usuario.correo = reader.GetString("correo");
-                    usuario.id_empleado = reader.GetInt32("id_empleado");
-                    usuario.rol = reader.IsDBNull(reader.GetOrdinal("rol")) ? "" : reader.GetString("rol");
-                    usuario.quote = reader.IsDBNull(reader.GetOrdinal("quote")) ? "" : reader.GetString("quote");
-                    usuario.ubicacion = reader.IsDBNull(reader.GetOrdinal("ubicacion")) ? "" : reader.GetString("ubicacion");
-                    usuario.telefono = reader.IsDBNull(reader.GetOrdinal("telefono")) ? "" : reader.GetString("telefono");
-                    usuario.imagen = reader.IsDBNull(reader.GetOrdinal("imagen")) ? "" : reader.GetString("imagen");
-                }
-            }
-            conexion.Close();
-
-            return usuario;
-        }
-
-
         public List<Usuario> GetLeaderboard()
         {
             List<Usuario> leaderboard = new List<Usuario>();
@@ -851,6 +792,29 @@ namespace Reto.Model
                 }
             }
             return ListaObjetivo;
+        }
+
+        public int? getEmpleadoId(string nombreUsuario)
+        {
+            using (MySqlConnection connection = GetConnection())
+            {
+                connection.Open();
+                string query = "SELECT id_empleado FROM Usuario WHERE nombre_usuario = @nombreUsuario";
+                
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
+                    
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return reader.GetInt32("id_empleado");
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
     }

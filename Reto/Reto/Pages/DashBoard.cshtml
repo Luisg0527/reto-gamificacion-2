@@ -1,61 +1,64 @@
 @page
 @model DashboardModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
-<body>
-    <div class="d-flex">
-        <div class="flex-grow-1 p-4" style="background-color: #F6F4F1;">
 
-            
-             <form method="get">
-                <div class="col-md-3 poppins-regular">
-                    <input type="date" class="form-control" asp-for="SelectedDate" onchange="this.form.submit()">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="poppins-bold">Reporte de Tienda</h2>
+                    <div class="date-picker">
+                        <input type="date" class="form-control" asp-for="SelectedDate" onchange="this.form.submit()" />
+                    </div>
                 </div>
-            </form>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h5>Ingresos</h5>
+                            <p class="metric-value">$@Model.metricas.ingresos.ToString("N2")</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h5>Ganancias</h5>
+                            <p class="metric-value">$@Model.metricas.ganancias.ToString("N2")</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h5>Órdenes</h5>
+                            <p class="metric-value">@Model.metricas.ordenes</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="metric-card">
+                            <h5>Visitas</h5>
+                            <p class="metric-value">@Model.metricas.visistas</p>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="row mt-4">
-                <div class="col-md-3 poppins-bold">
-                    <div class="card p-3 text-center">
-                        <p class="fw-bold text-title">Ingresos Totales</p>
-                        <span>@Model.metricas.ingresos.ToString("C")</span>
-                    </div>
-                </div>
-                <div class="col-md-3 poppins-bold">
-                    <div class="card p-3 text-center">
-                        <p class="fw-bold text-title">Ganancia Neta Total</p>
-                        <span>@Model.metricas.ganancias.ToString("C")</span>
-                    </div>
-                </div>
-                <div class="col-md-3 poppins-bold">
-                    <div class="card p-3 text-center">
-                        <p class="fw-bold text-title">Órdenes Totales</p>
-                        <span>@Model.metricas.ordenes</span>
-                    </div>
-                </div>
-                <div class="col-md-3 poppins-bold">
-                    <div class="card p-3 text-center">
-                        <p class="fw-bold text-title">Visitas Totales</p>
-                        <span>@Model.metricas.visistas</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-4 poppins-bold">
-                <div class="col-md-6">
-                    <div class="card p-3">
-                        <p class="fw-bold text-title">Principales proveedores</p>
-                        <img src="/images/pie-chart.jpg" class="img-fluid" alt="Pie Chart">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card p-3">
-                        <p class="fw-bold text-title">Ventas</p>
-                        <img src="/images/bar-chart.jpg" class="img-fluid" alt="Bar Chart">
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card p-3">
+                            <iframe 
+                                id="lookerFrame"
+                                width="100%" 
+                                height="450" 
+                                src="@Model.LookerStudioUrl" 
+                                frameborder="0" 
+                                style="border:0" 
+                                allowfullscreen 
+                                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

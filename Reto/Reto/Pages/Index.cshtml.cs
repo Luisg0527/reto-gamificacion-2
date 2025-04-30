@@ -46,6 +46,11 @@ public class IndexModel : PageModel
                 if (_context.verificarUsuario(nombre)) {
                     messageNombre = null;
                     HttpContext.Session.SetString("nombreSesion", nombre);
+                    // Get and set the empleadoId for this user
+                    var empleadoId = _context.getEmpleadoId(nombre);
+                    if (empleadoId.HasValue) {
+                        HttpContext.Session.SetInt32("empleadoIdSesion", empleadoId.Value);
+                    }
                     nombreCorrecto = true;
                 }
                 else {
